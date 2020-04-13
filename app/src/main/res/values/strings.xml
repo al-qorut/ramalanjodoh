@@ -1,0 +1,80 @@
+<resources>
+    <string name="app_name">Mate Forecast</string>
+    <string name="action_settings">About</string>
+    <string name="action_rate">Rate..</string>
+    <string name="action_share">Share..</string>
+    <string name="action_recent">Recent</string>
+    <string name="action_aufaq">More.. App</string>
+    <string name="action_ulama">Ulama Hikmah</string>
+    <string name="action_help">Help</string>
+    <string name="action_hitung">Calculation</string>
+    <string name="action_lagi">Again!</string>
+    <string name="laki">Input Male</string>
+    <string name="wanita">Input Female</string>
+    <string name="hasil">%1$s with %2$s will be %3$s</string>
+    <string name="hasil0">Gladness</string>
+    <string name="hasil1">Sorrowful</string>
+    <string name="hasil2">get together</string>
+    <string name="hasil3">divorce</string>
+    <string name="hasil4">Hard</string>
+    <string name="hasil5">Simplify</string>
+    <string name="hasil6">sickness</string>
+    <string name="hasil7">Suscessful</string>
+    <string name="hapus">Delete</string>
+    <string name="tidak">No</string>
+    <string name="tanya_hapus">Delete, Are you sure ?</string>
+    <string name="textArab">
+
+        "ابجدهوزح طيكلمنسعف صقرشتثخذضظغ"
+    </string>
+    <string name="app_link">"https://play.google.com/store/apps/details?id=smk.adzikro.ramalanjodoh"</string>
+    <string name="action_exit">Exit</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3624492980147085/1371439657</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-3624492980147085/3400975653</string>
+
+
+    <string name="infohelp">"Silahkan nama yang akan di Hitung conversi cara penulisannya dengan huruf arab\n
+        \nContoh : Irfan Hakim menjadi\nعرفان حكيم
+        \nAmbil huruf konsonannya saja terkecuali huruf vokal yang anda tahu bahwa itu berasal dari huruf Hamzah atau 'Ain
+        \n\nUntuk Metode Biasa sebaliknya "
+
+    </string>
+    <string name="help">Bantuan Metode Ulama Hikmah</string>
+    <string name="a1">ا</string>
+    <string name="a2">ب</string>
+    <string name="a3">ج</string>
+    <string name="a4">د</string>
+    <string name="a5">ه</string>
+    <string name="a6">و</string>
+    <string name="a7">ز</string>
+    <string name="a8">ح</string>
+    <string name="a9">ط</string>
+    <string name="a10">ي</string>
+    <string name="a20">ك</string>
+    <string name="a30">ل</string>
+    <string name="a40">م</string>
+    <string name="a50">ن</string>
+    <string name="a60">س</string>
+    <string name="a70">ع</string>
+    <string name="a80">ف</string>
+    <string name="a90">ص</string>
+    <string name="a100">ق</string>
+    <string name="a200">ر</string>
+    <string name="a300">ش</string>
+    <string name="a400">ت</string>
+    <string name="a500">ث</string>
+    <string name="a600">خ</string>
+    <string name="a700">ذ</string>
+    <string name="a800">ض</string>
+    <string name="a900">ظ</string>
+    <string name="a1000">غ</string>
+    <string name="action_info">Info PPDB</string>
+    <string name="action_donasi">Donation</string>
+    <string name="infoadzikro">Pesantren Adz-Dzikro Bandung</string>
+    <string name="infoikmal">Pesantren Ummi Kultsum Cianjur</string>
+    <string name="webadzikro">http://bit.ly/adzikro</string>
+    <string name="webikmal">https://forms.gle/ozELBTbcSAqo68By8</string>
+    <string name="todo">.</string>
+    <string name="about">Tentang</string>
+    <string name="tentang">"Ramalan Jodoh \nVer %s \nSMK ADZ-DZIKRO BANDUNG"</string>
+</resources>
