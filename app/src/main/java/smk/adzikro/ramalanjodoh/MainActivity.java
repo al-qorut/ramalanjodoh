@@ -1,16 +1,23 @@
 package smk.adzikro.ramalanjodoh;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.Service;
+import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,22 +27,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.jetbrains.annotations.NotNull;
+
 import smk.adzikro.ramalanjodoh.activity.AboutActivity;
-import smk.adzikro.ramalanjodoh.activity.InfoActivity;
 import smk.adzikro.ramalanjodoh.activity.Recent;
 import smk.adzikro.ramalanjodoh.data.DataBaseHelper;
 import smk.adzikro.ramalanjodoh.utils.Fungsi;
-import smk.adzikro.ramalanjodoh.utils.RateMeMaybe;
 
 
 public class MainActivity extends AppCompatActivity implements
-        View.OnClickListener, RateMeMaybe.OnRMMUserChoiceListener  {
+        View.OnClickListener {
     TextInputEditText jalu;
     TextInputEditText bikang;
     CardView hasil_view, proses;
@@ -46,6 +57,12 @@ public class MainActivity extends AppCompatActivity implements
     Integer click=0;
     boolean hitung = false;
     private InterstitialAd mInterstitialAd;
+    private AdView mAdView;
+    private final String TAG="MainActivity";
+    private static final long COUNT_LENGTH_MILLISECONDS = 3000;
+    private CountDownTimer countDownTimer;
+    private boolean gameIsInProgress;
+    private long timerMilliseconds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,26 +77,93 @@ public class MainActivity extends AppCompatActivity implements
         hasil_view = findViewById(R.id.view_hasil);
         imm = (InputMethodManager)this.getSystemService(Service.INPUT_METHOD_SERVICE);
         proses.setOnClickListener(this);
-        final AdView mAdView = (AdView) findViewById(R.id.adView);
+        mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        iklanInter();
         mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener(){
+        mAdView.setAdListener(new AdListener() {
             @Override
-            public void onAdFailedToLoad(int errorCode) {
-                mAdView.setVisibility(View.GONE);
-                Log.e("Ad"," "+errorCode);
-                 super.onAdFailedToLoad(errorCode);
+            public void onAdClosed() {
+                super.onAdClosed();
+                Log.e(TAG, "onAdClosed ");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull @NotNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                Log.e(TAG, "Error Iklan "+loadAdError.toString());
+            }
+
+            @Override
+            public void onAdOpened() {
+                super.onAdOpened();
+                Log.e(TAG, "onAdOpened ");
             }
 
             @Override
             public void onAdLoaded() {
-                mAdView.setVisibility(View.VISIBLE);
-                  super.onAdLoaded();
+                super.onAdLoaded();
+                Log.e(TAG, "onAdLoaded ");
+            }
+
+            @Override
+            public void onAdClicked() {
+                super.onAdClicked();
+                Log.e(TAG, "onAdCliked ");
+            }
+
+            @Override
+            public void onAdImpression() {
+                super.onAdImpression();
+                Log.e(TAG, "onAdImpession ");
             }
         });
-    }
 
+        loadAd();
+    }
+    public void loadAd(){
+        Log.e(TAG, "Preparing Interestial");
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(this,
+                getString(R.string.interstitial_ad_unit_id),
+                adRequest, new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull @NotNull InterstitialAd interstitialAd) {
+                        //super.onAdLoaded(interstitialAd);
+                        mInterstitialAd = interstitialAd;
+                        Log.e(TAG, "interstitialAd onLoaded");
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                                                                         @Override
+                                                                         public void onAdFailedToShowFullScreenContent(@NonNull @NotNull AdError adError) {
+                                                                             //super.onAdFailedToShowFullScreenContent(adError);
+                                                                             Log.e(TAG, "onAdFailedToShowFullScreenContent");
+                                                                             mInterstitialAd = null;
+                                                                         }
+
+                                                                         @Override
+                                                                         public void onAdShowedFullScreenContent() {
+                                                                             //super.onAdShowedFullScreenContent();
+                                                                             Log.e(TAG, "onAd was ToShowFullScreenContent");
+                                                                         }
+
+                                                                         @Override
+                                                                         public void onAdDismissedFullScreenContent() {
+                                                                             //super.onAdDismissedFullScreenContent();
+                                                                             mInterstitialAd = null;
+                                                                             Log.e(TAG, "onAdDismissToShowFullScreenContent");
+                                                                         }
+
+                                                                     }
+                        );
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull @NotNull LoadAdError loadAdError) {
+                        //super.onAdFailedToLoad(loadAdError);
+                        mInterstitialAd = null;
+                        Log.e(TAG, "onAdFailedToLoad "+loadAdError);
+                    }
+                });
+    }
     @Override
     public void onClick(View v) {
         if(hitung) {
@@ -128,48 +212,105 @@ public class MainActivity extends AppCompatActivity implements
         db.insert("ramal",null,contentValues);
         db.close();
     }
-
-    private void rate() {
-        RateMeMaybe.resetData(MainActivity.this);
-        RateMeMaybe rmm = new RateMeMaybe(MainActivity.this);
-        rmm.setPromptMinimums(0, 0, 0, 0);
-        rmm.setRunWithoutPlayStore(true);
-        rmm.setAdditionalListener(this);
-        rmm.setDialogMessage("Kalau suka dan bermanfaat, "
-                //    +"telah menjalankan %totalLaunchCount% kali! "
-                + "silahkan rate aplikasinya");
-        rmm.setDialogTitle("Rate..");
-        rmm.setPositiveBtn("OK!");
-        rmm.run();
+    private String getApplicationName() {
+        final PackageManager pm = getApplicationContext()
+                .getPackageManager();
+        ApplicationInfo ai;
+        String appName;
+        try {
+            ai = pm.getApplicationInfo(getPackageName(), 0);
+            appName = (String) pm.getApplicationLabel(ai);
+        } catch (final PackageManager.NameNotFoundException e) {
+            appName = "(unknown)";
+        }
+        return appName;
     }
-
-
-    private void iklanInter() {
-        mInterstitialAd = new InterstitialAd(MainActivity.this);
-        // Defined in res/values/strings.xml
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
-        mInterstitialAd.setAdListener(new AdListener() {
+    private Boolean isPlayStoreInstalled() {
+        PackageManager pacman = getPackageManager();
+        try {
+            pacman.getApplicationInfo("com.android.vending", 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+    private void showRate() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri
+                            .parse("market://details?id="
+                                    + getPackageName())));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, getString(R.string.no_play_store),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void rate() {
+        Log.e(TAG, "Show rate");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.rate));
+        builder.setMessage(String.format(getString(R.string.title_rate), getApplicationName()));
+        builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
-            public void onAdClosed() {
-                //  startActivity(new Intent(FragmenTerjemah.this,TemaAyatActivity.class));
-                onResume();
-               reqIklan();
-                // Toast.makeText(FragmenTerjemah.this, "Versi Iklhas bisa offline dan tidak ada Iklan, Silahkan upgrade ", Toast.LENGTH_SHORT).show();
+            public void onClick(DialogInterface dialog, int which) {
+                showRate();
             }
         });
-        reqIklan();
-    }
-    private void reqIklan(){
-      if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
-           AdRequest adRequest = new AdRequest.Builder().build();
-           mInterstitialAd.loadAd(adRequest);
-         }
-    }
-    private void showInterstitial() {
-        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-             click=0;
+        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
             }
+        }).show();
+    }
+
+
+
+    private void showInterstitial() {
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            Toast.makeText(this, "Ad did not load", Toast.LENGTH_SHORT).show();
+            startCount();
+        }
+    }
+    private void startCount() {
+        // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
+        if (mInterstitialAd == null) {
+            loadAd();
+        }
+
+      //  retryButton.setVisibility(View.INVISIBLE);
+        resumeCount(COUNT_LENGTH_MILLISECONDS);
+    }
+    private void createTimer(final long milliseconds) {
+        // Create the game timer, which counts down to the end of the level
+        // and shows the "retry" button.
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+
+      //  final TextView textView = findViewById(R.id.timer);
+
+        countDownTimer = new CountDownTimer(milliseconds, 50) {
+            @Override
+            public void onTick(long millisUnitFinished) {
+                timerMilliseconds = millisUnitFinished;
+             //   textView.setText("seconds remaining: " + ((millisUnitFinished / 1000) + 1));
+            }
+
+            @Override
+            public void onFinish() {
+                gameIsInProgress = false;
+               // textView.setText("done!");
+            }
+        };
+    }
+    private void resumeCount(long milliseconds) {
+        // Create a new timer for the correct length and start it.
+        gameIsInProgress = true;
+        timerMilliseconds = milliseconds;
+        createTimer(milliseconds);
+        countDownTimer.start();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -201,15 +342,16 @@ public class MainActivity extends AppCompatActivity implements
             rate();
             return true;
         }else if (id == R.id.action_share) {
-            Fungsi.share(this,"Aplikasi Ramalan  \n \nhttps://play.google.com/store/apps/details?id=smk.adzikro.ramalanjodoh \n");
+            Fungsi.share(this,getApplicationName()+"\n \nhttps://play.google.com/store/apps/details?id=smk.adzikro.ramalanjodoh \n");
             return true;
         }else if (id == R.id.action_exit) {
             this.finish();
             return true;
-        }else if (id == R.id.action_info) {
+        }/*else if (id == R.id.action_info) {
             startActivity(new Intent(MainActivity.this, InfoActivity.class));
             return true;
-        }else if (id == R.id.action_recent) {
+        } */
+        else if (id == R.id.action_recent) {
             startActivity(new Intent(MainActivity.this, Recent.class));
             return true;
         }else if (id == R.id.action_aufaq) {
@@ -221,28 +363,15 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/search?q=pub:" + appPackageName)));
             }
             return true;
-        }else if (id == R.id.action_help) {
+        }/*else if (id == R.id.action_help) {
             Fungsi.ShowMessage(this, getString(R.string.help),getString(R.string.infohelp));
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void handlePositive() {
 
-    }
-
-    @Override
-    public void handleNeutral() {
-
-    }
-
-    @Override
-    public void handleNegative() {
-
-    }
 
     class getHitung extends AsyncTask<Void, Integer, Void> {
         ProgressDialog dialog;

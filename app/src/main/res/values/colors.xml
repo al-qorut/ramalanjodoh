@@ -5,4 +5,5 @@
     <color name="colorAccent">#DA03CF</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="linkColor">#42a5f5</color>
 </resources>

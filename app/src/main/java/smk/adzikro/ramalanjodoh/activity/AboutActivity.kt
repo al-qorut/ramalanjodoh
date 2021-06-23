@@ -210,8 +210,5 @@ class AboutActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        onBackPressed()
-        return super.onOptionsItemSelected(item)
-    }
+
 }

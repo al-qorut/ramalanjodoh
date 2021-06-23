@@ -22,6 +22,7 @@
     <string name="hasil7">menjadi cinta yang abadi... bahagia selamanya..</string>
     <string name="hapus">Hapus</string>
     <string name="tidak">Tidak</string>
+    <string name="pilih">Pilih</string>
     <string name="tanya_hapus">Mau Hapus semuanya ?</string>
     <string name="textArab">
 
@@ -75,4 +76,13 @@
     <string name="todo">.</string>
     <string name="about">About</string>
     <string name="tentang">"Ramalan Jodoh \nVer %s \nSMK ADZ-DZIKRO BANDUNG"</string>
+    <string name="rate">Rate</string>
+    <string name="not_now">Not Now</string>
+    <string name="no">No</string>
+    <string name="ok">Ok</string>
+    <string name="title_rate">I Like this %s </string>
+    <string name="no_play_store">Playstore not installed</string>
+    <string name="done">Done</string>
+    <string name="success_body">Success</string>
+    <string name="congratulations">congratulations</string>
 </resources>

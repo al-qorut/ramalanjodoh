@@ -162,7 +162,7 @@ public class Fungsi {
             i.putExtra(Intent.EXTRA_SUBJECT, context.getApplicationInfo().loadLabel(context.getPackageManager()).toString());
             String sAux = (String) isi;
             i.putExtra(Intent.EXTRA_TEXT, sAux);
-            context.startActivity(Intent.createChooser(i, "Pilih.."));
+            context.startActivity(Intent.createChooser(i,context.getText(R.string.pilih)));
         } catch (Exception e) { //e.toString();
         }
     }

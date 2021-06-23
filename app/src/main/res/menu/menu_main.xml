@@ -28,7 +28,7 @@
         android:orderInCategory="100"
         android:title="@string/action_aufaq"
         app:showAsAction="never" />
-    <item
+    <!--<item
         android:id="@+id/action_info"
         android:orderInCategory="100"
         android:title="@string/action_info"
@@ -37,7 +37,7 @@
         android:id="@+id/action_help"
         android:orderInCategory="100"
         android:title="@string/action_help"
-        app:showAsAction="never" />
+        app:showAsAction="never" /> -->
 
     <item
         android:id="@+id/action_exit"

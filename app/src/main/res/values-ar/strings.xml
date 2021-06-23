@@ -23,6 +23,7 @@
     <string name="hapus">نعم</string>
     <string name="tidak">لا</string>
     <string name="tanya_hapus">حذف ?</string>
+    <string name="pilih">اختار</string>
     <string name="textArab">
 
         "ابجدهوزح طيكلمنسعف صقرشتثخذضظغ"
@@ -75,4 +76,13 @@
     <string name="todo">.</string>
     <string name="about">Tentang</string>
     <string name="tentang">"Ramalan Jodoh \nVer %s \nSMK ADZ-DZIKRO BANDUNG"</string>
+    <string name="rate">Rate</string>
+    <string name="not_now">Not Now</string>
+    <string name="no">No</string>
+    <string name="ok">Ok</string>
+    <string name="title_rate">I Like this %s </string>
+    <string name="no_play_store">Playstore not installed</string>
+    <string name="done">Done</string>
+    <string name="success_body">Success</string>
+    <string name="congratulations">congratulations</string>
 </resources>
