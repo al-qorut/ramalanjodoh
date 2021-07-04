@@ -81,10 +81,13 @@
     <string name="tentang">"Mate Forecast \nVer %s \nSMK ADZ-DZIKRO BANDUNG"</string>
     <string name="rate">Rate</string>
     <string name="not_now">Not Now</string>
-    <string name="no">No</string>
-    <string name="ok">Ok</string>
+    <string name="no">Not</string>
+    <string name="ok">Yes</string>
     <string name="no_play_store">Playstore not installed</string>
     <string name="done">Done</string>
     <string name="success_body">Success</string>
     <string name="congratulations">congratulations</string>
+    <string name="sama">"Men's names and women's names are the same %s, further predict?"</string>
+    <string name="ada">"Are the names entered by %s and %s correct? and continue to predict?"</string>
+    <string name="tdbenar">The word entered contains a combination of letters that are not correct, do you want to continue?</string>
 </resources>

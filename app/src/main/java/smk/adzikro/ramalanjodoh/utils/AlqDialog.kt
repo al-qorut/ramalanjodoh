@@ -1,4 +1,4 @@
-package smk.adzikro.ramalanjodoh
+package smk.adzikro.ramalanjodoh.utils
 
 import android.app.Activity
 import android.graphics.Typeface
@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.layout_dialog.*
+import smk.adzikro.ramalanjodoh.R
 
 class AlqDialog {
 

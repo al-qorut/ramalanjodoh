@@ -74,7 +74,7 @@
     <string name="webadzikro">http://bit.ly/adzikro</string>
     <string name="webikmal">https://forms.gle/ozELBTbcSAqo68By8</string>
     <string name="todo">.</string>
-    <string name="about">Tentang</string>
+    <string name="about">About</string>
     <string name="tentang">"Ramalan Jodoh \nVer %s \nSMK ADZ-DZIKRO BANDUNG"</string>
     <string name="rate">Rate</string>
     <string name="not_now">Not Now</string>
@@ -85,4 +85,7 @@
     <string name="done">Done</string>
     <string name="success_body">Success</string>
     <string name="congratulations">congratulations</string>
+    <string name="sama">"أسماء الرجال وأسماء النساء هي نفسها٪ s ، استمر في التنبؤ"</string>
+    <string name="ada">"هل الأسماء التي تم إدخالها بواسطة٪ s و٪ s صحيحة؟ والاستمرار في التنبؤ"</string>
+    <string name="tdbenar">الكلمة التي تم إدخالها تحتوي على مجموعة أحرف غير صحيحة ، هل تريد المتابعة؟</string>
 </resources>

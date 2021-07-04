@@ -68,7 +68,7 @@
     <string name="a900">ظ</string>
     <string name="a1000">غ</string>
     <string name="action_info">Info PPDB</string>
-    <string name="action_donasi">Donation</string>
+    <string name="action_donasi">Donasi</string>
     <string name="infoadzikro">Pesantren Adz-Dzikro Bandung</string>
     <string name="infoikmal">Pesantren Ummi Kultsum Cianjur</string>
     <string name="webadzikro">http://bit.ly/adzikro</string>
@@ -77,12 +77,15 @@
     <string name="about">About</string>
     <string name="tentang">"Ramalan Jodoh \nVer %s \nSMK ADZ-DZIKRO BANDUNG"</string>
     <string name="rate">Rate</string>
-    <string name="not_now">Not Now</string>
-    <string name="no">No</string>
-    <string name="ok">Ok</string>
-    <string name="title_rate">I Like this %s </string>
-    <string name="no_play_store">Playstore not installed</string>
+    <string name="not_now">Tidak Sekarang</string>
+    <string name="no">Tidak</string>
+    <string name="ok">Ya</string>
+    <string name="title_rate">Saya suka %s </string>
+    <string name="no_play_store">Playstore tidak terpasang</string>
     <string name="done">Done</string>
-    <string name="success_body">Success</string>
-    <string name="congratulations">congratulations</string>
+    <string name="success_body">Sukses</string>
+    <string name="congratulations">Selamat</string>
+    <string name="sama">"Nama Pria dan Nama Wanita sama %s, lanjut diramal "</string>
+    <string name="ada">"Nama yang diinput %s dan %s apakah sudah benar? dan lanjut diramal  "</string>
+    <string name="tdbenar">Kata yang dimasukan mengandung gabungan huruf yang tidak benar</string>
 </resources>

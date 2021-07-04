@@ -96,7 +96,7 @@ public class Fungsi {
         for(int i=0; i<abjad.length;i++){
             if(abjad[i].equals(a)){
                 f= nilai[i];
-                Log.e("I-getNilaiIndex",""+f);
+              //  Log.e("I-getNilaiIndex",""+f);
                 break;
             }
         }
@@ -122,7 +122,7 @@ public class Fungsi {
             hasil =hasil+getNilaiIndexAr(nama.substring(i,i+1));
 
         }
-        Log.e("I-getNilai",nama+"-"+hasil);
+      //  Log.e("I-getNilai",nama+"-"+hasil);
         return hasil;
     }
 
