@@ -20,9 +20,7 @@ android {
         versionName = "4.1.5"
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
+
     }
 
     buildTypes {
@@ -38,7 +36,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             getDefaultProguardFile("proguard-android-optimize.txt")
-            "proguard-rules.pro"
+            //"proguard-rules.pro"
 
         }
 
@@ -58,7 +56,9 @@ android {
 
 
 }
-
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -71,7 +71,7 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.bundles.navigation)
     implementation(libs.lotte)
-
+    implementation(libs.guava)
     //firebase
     implementation(libs.bundles.firebase)
     implementation(libs.google.play.service.auth)

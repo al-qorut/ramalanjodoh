@@ -143,4 +143,5 @@
     <string name="comment">Komentar</string>
     <string name="comment_kosong">Belum ada Komentar</string>
     <string name="info_bonus">Untuk mendapatkan bonus token anda harus menonton video iklan sampai selesai. /nApakah info ini terus tampil setiap tombol bonus diklik dan melanjutkan mabil bonus ?</string>
+    <string name="error">Eror %s</string>
 </resources>

@@ -78,7 +78,7 @@ abstract class BaseActivity : AppCompatActivity() {
         _isLoaded.value = false
 
         billing = BillingManager(this)
-        billing?.startBillingClient()
+        billing?.startBillingConnection()
     }
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
