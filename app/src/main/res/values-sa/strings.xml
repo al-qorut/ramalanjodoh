@@ -1,0 +1,146 @@
+<resources>
+    <string name="app_name">توقعات الزواج</string>
+    <string name="action_settings">حول</string>
+    <string name="action_rate">التقييم..</string>
+    <string name="action_share">مشاركة..</string>
+    <string name="action_recent">نتائج الحساب</string>
+    <string name="action_aufaq">تطبيقات أخرى</string>
+    <string name="action_ulama">علماء الحكمة</string>
+    <string name="action_help">مساعدة</string>
+    <string name="action_hitung">احسب</string>
+    <string name="action_lagi">مرة أخرى!</string>
+    <string name="laki">أدخل اسم الرجل</string>
+
+    <string name="hapus">هل أنت متأكد أنك تريد حذف بيانات الشريك %1$s و %2$s؟</string>
+    <string name="tidak">لا</string>
+    <string name="pilih">اختيار</string>
+    <string name="tanya_hapus">هل تريد حذف كل شيء؟</string>
+    <string name="app_link">"https://play.google.com/store/apps/details?id=smk.adzikro.ramalanjodoh"</string>
+    <string name="action_exit">خروج</string>
+
+    <string name="help">مساعدة طريقة علماء الحكمة</string>
+
+    <string name="action_info">معلومات</string>
+    <string name="action_donasi">تبرع</string>
+    <string name="infoadzikro">مدرسة أdz-Dzikro الإسلامية في بندونغ</string>
+    <string name="infoikmal">مدرسة أمي ثقيم الإسلامية في سيانجور</string>
+    <string name="webadzikro">http://bit.ly/adzikro</string>
+    <string name="webikmal">https://forms.gle/ozELBTbcSAqo68By8</string>
+    <string name="todo">.</string>
+    <string name="about">حول</string>
+    <string name="tentang">"توقعات الزواج \nVer %s \nSMK ADZ-DZIKRO BANDUNG"</string>
+    <string name="rate">التقييم</string>
+    <string name="not_now">ليس الآن</string>
+    <string name="no">لا</string>
+    <string name="ok">نعم</string>
+    <string name="title_rate">أحب %s </string>
+    <string name="no_play_store">الـ Playstore غير مثبت</string>
+    <string name="done">تم</string>
+    <string name="success_body">نجاح</string>
+    <string name="congratulations">مبروك</string>
+    <string name="sama">"الأسماء %1$s  متشابهة، استمر في التوقع"</string>
+    <string name="ada">"هل الأسماء %1$s و %2$s المدخلة صحيحة؟ استمر في التوقع"</string>
+    <string name="tdbenar">الكلمات المدخلة تحتوي على مجموعات حروف غير صحيحة</string>
+
+    <string name="baik1">الزوجين %1$s و %2$s وفقًا للتوقعات والحسابات والتحليل مع الاحتمالات المختلفة، هما زوجين مثاليين وإذا تزوجا، سيصبحان عائلة ناجحة</string>
+    <string name="baik2">وفقًا لتوقعات وحسابات وتحليل مختلف الاحتمالات، يُتوقع أن الزوجين %1$s و %2$s زوجين متناغمين ومتوافقين، ولديهم القدرة على بناء عائلة ناجحة بعد الزواج.</string>
+    <string name="baik3">وفقًا للتحليل والحسابات مع الاحتمالات المختلفة، يُعتبر الزوجان %1$s و %2$s زوجين مثاليين وسيشكلان عائلة ناجحة إذا تزوجا.</string>
+    <string name="baik4">من مختلف جوانب الحسابات والتحليل، يُعتبر الزوجان %1$s و %2$s متوافقين للغاية، متناغمين، وسيعيشون حياة عائلية ناجحة بعد الزواج.</string>
+    <string name="baik5">التحليل والحسابات تظهر أن الزوجين %1$s و %2$s متناغمان ومتوافقان، وسينشئان عائلة سعيدة وناجحة بعد الزواج.</string>
+    <string name="baik6">وفقًا للتحليل العميق والحسابات، يُعتبر الزوجان %1$s و %2$s متوافقين للغاية وسيشكلان عائلة ناجحة إذا قررا الزواج.</string>
+    <string name="baik7">تظهر التوقعات والتحليل أن الزوجين %1$s و %2$s لديهما توافق استثنائي وسيشكلان عائلة ناجحة بعد الزواج.</string>
+    <string name="baik8">من خلال التحليل والحسابات المختلفة، يُعتقد أن الزوجين %1$s و %2$s لديهما توافق وتناغم عالٍ، وسيشكلان عائلة ناجحة إذا تزوجا.</string>
+    <string name="baik9">من خلال أخذ جميع الاحتمالات في الاعتبار، يُتوقع أن الزوجين %1$s و %2$s سيشكلان زوجين متوافقين وناجحين في بناء عائلة.</string>
+    <string name="baik10">وفقًا للتحليل المدروس، يُعتقد أن الزوجين %1$s و %2$s متوافقين للغاية وسيشكلان عائلة ناجحة إذا تزوجا.</string>
+    <string name="baik11">وفقًا للتوقعات والتحليل، يُتوقع أن الزوجين %1$s و %2$s سيكونان زوجين متناغمين ومتوافقين وسينجحان في بناء عائلة ناجحة بعد الزواج.</string>
+
+    <string name="buruk10">الزوجان %1$s و %2$s وفقًا للتوقعات والحسابات والتحليل مع الاحتمالات المختلفة، يعتبران غير متوافقين وغالبًا ما يحدث بينهما صراعات، وإذا تزوجا، فإنهما سيشكلان عائلة غير سعيدة. %3$s!</string>
+    <string name="buruk1">وفقًا للتوقعات والحسابات والتحليل من مختلف الاحتمالات، يُتوقع أن الزوجين %1$s و %2$s غير متوافقين وغالبًا ما يحدث بينهما مشاجرات، وإذا تزوجا، فمن المرجح أن يشكلا عائلة غير سعيدة. %3$s!</string>
+    <string name="buruk2">تظهر التوقعات والتحليل أن الزوجين %1$s و %2$s غير متوافقين وغالبًا ما يتورطان في خلافات، وإذا تزوجا، من المرجح أن يواجهوا شقاءً في العائلة. %3$s!</string>
+    <string name="buruk3">وفقًا للتحليل والحسابات، يعتبر الزوجان %1$s و %2$s غير متوافقين وغالبًا ما يتشاجران، مما يعرض حياتهما العائلية للعدم السعادة إذا تزوجا. %3$s!</string>
+    <string name="buruk4">من خلال التوقعات والتحليل، يبدو أن الزوجين %1$s و %2$s غير متوافقين وغالبًا ما يحدث بينهما صراعات، ومن المحتمل أن يشكلا عائلة غير سعيدة إذا تزوجا. %3$s!</string>
+    <string name="buruk5">وفقًا للتحليل والحسابات المختلفة، يُتوقع أن الزوجين %1$s و %2$s غير متوافقين وغالبًا ما يواجهان مشاجرات، مما قد يؤدي إلى حياة عائلية غير سعيدة بعد الزواج. %3$s!</string>
+    <string name="buruk6">الزوجان %1$s و %2$s وفقًا للتحليل والتوقعات غير متوافقين وغالبًا ما يواجهان توترات، وإذا تزوجا، فمن المرجح أن تكون عائلتهما غير سعيدة. %3$s!</string>
+    <string name="buruk7">وفقًا للتحليل والحسابات مع الاحتمالات المختلفة، يُتوقع أن الزوجين %1$s و %2$s غير متوافقين وغالبًا ما يتشاجران، مما قد يؤدي إلى حياة عائلية مليئة بالحزن بعد الزواج. %3$s!</string>
+    <string name="buruk8">تظهر التوقعات والتحليل أن الزوجين %1$s و %2$s غير متوافقين وغالبًا ما يتورطان في صراعات، مما قد يجعلهم غير سعداء كعائلة بعد الزواج. %3$s!</string>
+    <string name="buruk9">وفقًا للتحليل والتوقعات المختلفة، يُتوقع أن الزوجين %1$s و %2$s غير متوافقين وغالبًا ما يواجهان خلافات، لذلك من المرجح أن تكون عائلتهم غير سعيدة إذا تزوجا. %3$s!</string>
+    <string name="disclimer">هذه مجرد توقعات، إذا كنتما تحبان بعضكما البعض تجاهلا ذلك :)</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-3624492980147085/1371439657</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-3624492980147085/3400975653</string>
+    <string name="id_admob">ca-app-pub-3624492980147085~8894706455</string>
+    <string name="wanita">أدخل اسم المرأة</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="home">الر
+
+ئيسية</string>
+    <string name="image_description">النتيجة</string>
+    <string name="action_ramal">توقع</string>
+    <string name="image_delete">حذف</string>
+    <string name="image_favorite">مفضل</string>
+    <string name="berhasil">تم إرسال الاسم بنجاح للتحليل... انتظر النتيجة</string>
+    <string name="gagal">فشل إرسال البيانات للتحليل!!</string>
+
+    <string name="ar0">الزوجان %1$s و %2$s سينجحان</string>
+    <string name="ar1">الزوجان %1$s و %2$s سيكونان سعيدين</string>
+    <string name="ar2">الزوجان %1$s و %2$s متوافقين تمامًا</string>
+    <string name="ar3">الزوجان %1$s و %2$s مباركين</string>
+    <string name="ar4">الزوجان %1$s و %2$s سيتشاجران باستمرار</string>
+    <string name="ar5">الزوجان %1$s و %2$s غير متوافقين</string>
+    <string name="ar6">الزوجان %1$s و %2$s سيواجهان صعوبة</string>
+    <string name="medsos">وسائل التواصل الاجتماعي</string>
+    <string name="about_app">مستوحى من كتاب الأفق في التنبؤ بالزواج، بناءً على الفكرة التي تقول إن لكل حرف قيمة مختلفة. من خلال جمع قيم كل اسم ومعالجتها، يتم عمل التنبؤ بالزواج. للجادين، يرجى الإدخال بالحروف العربية</string>
+    <string name="image_fb">فيسبوك</string>
+    <string name="app_ver">الإصدار %1$s</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="no_data">لا توجد بيانات</string>
+    <string name="search">بحث..</string>
+    <string name="online">متصل</string>
+    <string name="noyet_login">لم يتم تسجيل الدخول</string>
+    <string name="client_id">249543266039-qshu3jolikr6nt7aseer7gfppgk5vc3q.apps.googleusercontent.com</string>
+
+    <string name="no_internet">لا يوجد اتصال بالإنترنت</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="favorite">مفضل</string>
+    <string name="prediksi">توقع</string>
+    <string name="jodoh">مطابقة</string>
+    <string name="loading">جارٍ تحميل البيانات..</string>
+    <string name="comment_baru">إنشاء تعليق..</string>
+    <string name="yes">نعم</string>
+    <string name="pertanyaan">هل أنت</string>
+    <string name="comment_count">%1$d تعليقات</string>
+    <string name="suka_count">%1$d إعجابات</string>
+    <string name="accept">موافقة</string>
+    <string name="no_accept">لتسجيل الدخول واستخدام جميع وظائف التطبيق، يجب عليك قراءة والموافقة على سياسة الخصوصية</string>
+    <string name="settings">الإعدادات</string>
+    <string name="info">معلومات</string>
+    <string name="display_name">اسم العرض</string>
+    <string name="count_token">%1$d توكن</string>
+    <string name="have_token">التوكنات المملوكة</string>
+    <string name="token">توكن</string>
+    <string name="info_token">"التوكن هو تذكرة لمعالجة وتحليل مدى توافق الزوجين"</string>
+    <string name="info_token_value">"للحصول على التوكنات، يمكنك شراؤها، الحصول على مكافآت، أو القيام بأنشطة إعلانات"</string>
+    <string name="beli_token">شراء توكن</string>
+    <string name="harga_token">Rp 6,000 لـ 5 توكنات</string>
+    <string name="bonus_token">الحصول على توكن مكافأة</string>
+    <string name="click_bonus">شاهد الإعلانات واحصل على توكن</string>
+    <string name="result_publsih">نشر التوقع</string>
+    <string name="hasil_publish">تم نشر نتيجة التوقع</string>
+    <string name="label_count_token">عدد التوكنات</string>
+    <string name="language">إعدادات اللغة</string>
+
+    <string name="ambil_bonus">Get Bonus</string>
+    <string name="list_item_prediksi">List Hasil Prediksi</string>
+    <string name="input_cari_hasil_prediksi">Mencari hasil Prediksi</string>
+    <string name="list_comment">List Comment</string>
+    <string name="not_yet_token">Token tidak cukup</string>
+    <string name="add_favorite">Mau simpan ke koleksi favoritmu?</string>
+    <string name="info_publish">Maaf token anda %1$d tidak bisa melakukan prediksi. Silahkan masuk Setting publish di uncheklis atau anda menambah token dulu dengan mengambil bonus token atau membeli</string>
+    <string name="sukses_publish">"Nama sukses diprediski silahkan tunggu hasilnya.. "</string>
+    <string name="hasil_pencarian">Hasil Pencarian</string>
+    <string name="text_cari_kosong">Silahkan masukan ramal yang akan dicari</string>
+    <string name="data_cari_kosong">"Data yang dicari tidak ada "</string>
+    <string name="comment">Komentar</string>
+    <string name="comment_kosong">Belum ada Komentar</string>
+    <string name="info_bonus">Untuk mendapatkan bonus token anda harus menonton video iklan sampai selesai. /nApakah info ini terus tampil setiap tombol bonus diklik dan melanjutkan mabil bonus ?</string>
+</resources>

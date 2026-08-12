@@ -1,0 +1,101 @@
+{
+  "project_info": {
+    "project_number": "1038751793192",
+    "firebase_url": "https://nasri-65746653.firebaseio.com",
+    "project_id": "nasri-65746653",
+    "storage_bucket": "nasri-65746653.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038751793192:android:9974348aaa236f5c44f51d",
+        "android_client_info": {
+          "package_name": "smk.adzikro.nasri_free"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038751793192-7dgcf9tnd7n8n833dthltniart24ebof.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "smk.adzikro.nasri_free",
+            "certificate_hash": "5c6d552d71ec5340f311bc5d684d6fa1e1a5b9aa"
+          }
+        },
+        {
+          "client_id": "1038751793192-dd52m5ljad4a8gh89rv522bcc70k27iv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "smk.adzikro.nasri_free",
+            "certificate_hash": "8e0febc0bba64e43e824488c7d0257c9e362ae7c"
+          }
+        },
+        {
+          "client_id": "1038751793192-uutut26m2klc061pj0fvu4qmlv4od7ov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT5r2ag3UgImXfcWsQ43ZCcMeD07GNjh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038751793192-e8ganqrer7522rkaqk9hdckhkqg2kuq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038751793192:android:2bf9bc098ecade3b44f51d",
+        "android_client_info": {
+          "package_name": "smk.adzikro.ramalanjodoh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038751793192-5gih0t9smkd6cau4vibhjc0e37ga20of.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "smk.adzikro.ramalanjodoh",
+            "certificate_hash": "554f9d91c2cd9e5f700fe686f449e3a4f88d7d32"
+          }
+        },
+        {
+          "client_id": "1038751793192-nd5dnecptf8lh583gn1qjnotr95d5eav.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "smk.adzikro.ramalanjodoh",
+            "certificate_hash": "5c6d552d71ec5340f311bc5d684d6fa1e1a5b9aa"
+          }
+        },
+        {
+          "client_id": "1038751793192-uutut26m2klc061pj0fvu4qmlv4od7ov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT5r2ag3UgImXfcWsQ43ZCcMeD07GNjh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038751793192-e8ganqrer7522rkaqk9hdckhkqg2kuq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

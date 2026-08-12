@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimary">#6750A4</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#DA03CF</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="linkColor">#42a5f5</color>
+    <color name="transparent_black">#33000000</color>
+    <color name="grey">#FF9E9E9E</color>
+    <color name="divider_grey">#55808080</color>
+    <color name="theme_dark_background_color">@color/md_grey_800_dark</color>
+    <color name="md_grey_800_dark">#2D2D2D</color>
+    <color name="navi">#2D3D4F</color>
+
+    <color name="default_background_color">@color/theme_dark_background_color</color>
+
 </resources>

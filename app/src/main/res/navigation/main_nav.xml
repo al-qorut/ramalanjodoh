@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/ramalFragment"
+        android:name="smk.adzikro.ramalanjodoh.ui.fragments.ramalan.RamalanFragment"
+        android:label="fragment_ramalan"
+        tools:layout="@layout/fragment_ramalan" >
+        <action
+            android:id="@+id/action_ramalFragment_self"
+            app:destination="@id/ramalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onlineFragment"
+        android:name="smk.adzikro.ramalanjodoh.ui.fragments.online.OnlineFragment"
+        android:label="fragment_online"
+        tools:layout="@layout/fragment_online" >
+        <action
+            android:id="@+id/action_onlineFragment_self"
+            app:destination="@id/onlineFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="smk.adzikro.ramalanjodoh.ui.fragments.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_self"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="smk.adzikro.ramalanjodoh.ui.fragments.info.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" >
+        <action
+            android:id="@+id/action_infoFragment_self"
+            app:destination="@id/infoFragment" />
+    </fragment>
+</navigation>

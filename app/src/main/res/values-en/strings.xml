@@ -1,0 +1,145 @@
+<resources>
+    <string name="app_name">Prediksi Jodoh</string>
+    <string name="action_settings">About</string>
+    <string name="action_rate">Rate..</string>
+    <string name="action_share">Share..</string>
+    <string name="action_recent">Calculation Results</string>
+    <string name="action_aufaq">Other Apps</string>
+    <string name="action_ulama">Ulama Hikmah</string>
+    <string name="action_help">Help</string>
+    <string name="action_hitung">Calculate</string>
+    <string name="action_lagi">Again!</string>
+    <string name="laki">Enter Man\'s Name</string>
+
+    <string name="hapus">Are you sure you want to delete the data for partner %1$s and %2$s?</string>
+    <string name="tidak">No</string>
+    <string name="pilih">Choose</string>
+    <string name="tanya_hapus">Do you want to delete everything?</string>
+    <string name="app_link">"https://play.google.com/store/apps/details?id=smk.adzikro.ramalanjodoh"</string>
+    <string name="action_exit">Exit</string>
+
+    <string name="help">Help Ulama Hikmah Method</string>
+
+    <string name="action_info">Info</string>
+    <string name="action_donasi">Donation</string>
+    <string name="infoadzikro">Adz-Dzikro Islamic Boarding School Bandung</string>
+    <string name="infoikmal">Ummi Kultsum Islamic Boarding School Cianjur</string>
+    <string name="webadzikro">http://bit.ly/adzikro</string>
+    <string name="webikmal">https://forms.gle/ozELBTbcSAqo68By8</string>
+    <string name="todo">.</string>
+    <string name="about">About</string>
+    <string name="tentang">"Marriage Prediction \nVer %s \nSMK ADZ-DZIKRO BANDUNG"</string>
+    <string name="rate">Rate</string>
+    <string name="not_now">Not Now</string>
+    <string name="no">No</string>
+    <string name="ok">Yes</string>
+    <string name="title_rate">I like %s </string>
+    <string name="no_play_store">Playstore is not installed</string>
+    <string name="done">Done</string>
+    <string name="success_body">Success</string>
+    <string name="congratulations">Congratulations</string>
+    <string name="sama">"The names %1$s are the same, not proceed the prediction"</string>
+    <string name="ada">"Are the names %1$s and %2$s entered correctly? Proceed with the prediction"</string>
+    <string name="tdbenar">The entered words contain invalid letter combinations</string>
+
+    <string name="baik1">The couple %1$s and %2$s, based on predictions, calculations, and analysis with various possibilities, is a perfect match and if married, will become a successful family</string>
+    <string name="baik2">Based on various predictions, calculations, and analysis, the couple %1$s and %2$s are predicted to be a harmonious and compatible pair, and have the potential to build a successful family after marriage.</string>
+    <string name="baik3">According to analysis and calculations with various possibilities, the couple %1$s and %2$s are an ideal pair and will form a successful family if they marry.</string>
+    <string name="baik4">From various perspectives of calculations and analysis, the couple %1$s and %2$s are considered very compatible, harmonious, and will have a successful family life after marriage.</string>
+    <string name="baik5">Analysis and calculations show that the couple %1$s and %2$s are harmonious and compatible, and will form a happy and successful family after marriage.</string>
+    <string name="baik6">Based on deep analysis and calculations, the couple %1$s and %2$s are considered very compatible and will form a successful family if they decide to marry.</string>
+    <string name="baik7">Predictions and analysis show that the couple %1$s and %2$s have an extraordinary compatibility and will form a successful family after marriage.</string>
+    <string name="baik8">Through various analyses and calculations, the couple %1$s and %2$s are believed to have high compatibility and harmony, and will form a successful family if they marry.</string>
+    <string name="baik9">Considering various possibilities, the couple %1$s and %2$s are predicted to be a harmonious pair and will be successful in building a family.</string>
+    <string name="baik10">Based on careful analysis, the couple %1$s and %2$s are considered very compatible and will form a successful family if they marry.</string>
+    <string name="baik11">According to predictions and analysis, the couple %1$s and %2$s will become a harmonious, compatible pair and succeed in building a successful family after marriage.</string>
+
+    <string name="buruk10">The couple %1$s and %2$s, according to predictions, calculations, and analysis with various possibilities, are less compatible and often have conflicts. If they marry, they will form an unhappy family. %3$s!</string>
+    <string name="buruk1">Based on predictions, calculations, and analysis from various possibilities, the couple %1$s and %2$s are expected to be less compatible, often experiencing arguments, and if they marry, they are likely to become an unhappy family. %3$s!</string>
+    <string name="buruk2">Predictions and analysis show that the couple %1$s and %2$s are incompatible, often involved in disagreements, and if they marry, they will likely face family unhappiness. %3$s!</string>
+    <string name="buruk3">According to analysis and calculations, the couple %1$s and %2$s are considered incompatible and frequently fight, which risks leading to an unhappy family life if they marry. %3$s!</string>
+    <string name="buruk4">Through predictions and analysis, the couple %1$s and %2$s seem incompatible, often facing conflicts, and are likely to form an unhappy family if they marry. %3$s!</string>
+    <string name="buruk5">Based on calculations and analysis of various possibilities, the couple %1$s and %2$s are expected to be incompatible and often argue, which could lead to an unhappy family life after marriage. %3$s!</string>
+    <string name="buruk6">The couple %1$s and %2$s, according to analysis and predictions, are incompatible, often face tension, and if they marry, the resulting family is unlikely to be happy. %3$s!</string>
+    <string name="buruk7">Based on calculations and analysis with various possibilities, the couple %1$s and %2$s are incompatible and frequently argue, which could lead to an unhappy family life after marriage. %3$s!</string>
+    <string name="buruk8">Predictions and analysis show that the couple %1$s and %2$s are incompatible and often involved in conflicts, which could make them unhappy as a family after marriage. %3$s!</string>
+    <string name="buruk9">According to various analyses and predictions, the couple %1$s and %2$s are incompatible and frequently experience disagreements, so their family is unlikely to be happy if they marry. %3$s!</string>
+    <string name="disclimer">This is just a prediction, if you already love each other, just ignore it :)</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-3624492980147085/1371439657</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-3624492980147085/3400975653</string>
+    <string name="id_admob">ca-app-pub-3624492980147085~8894706455</string>
+    <string name="wanita">Enter Woman\'s Name</string>
+    <string name="retry">Retry</string>
+    <string name="home">Home</string>
+    <string name="image_description">result</string>
+    <string name="action_ramal">Predict</string>
+    <string name="image_delete">Delete</string>
+    <string name="image_favorite">Favorite</string>
+    <string name="berhasil">Name successfully sent for analysis... wait for the result</string>
+    <string name="gagal">Data failed to send for analysis!!</string>
+
+    <string name="ar0">The couple %1$s and %2$s will succeed</string>
+    <string name="ar1">The couple %1$s and %2$s will be happy</string>
+    <string name="ar2">The couple %1$s and %2$s are a perfect match</string>
+    <string name="ar3">The couple %1$s and %2$s are blessed</string>
+    <string name="ar4">The couple %1$s and %2$s will argue constantly</string>
+    <string name="ar5">The couple %1$s and %2$s are incompatible</string>
+    <string name="ar6">The couple %1$s and %2$s will struggle</string>
+    <string name="medsos">Social Media</string>
+    <string name="about_app">Inspired by the book Al-Aufaq in predicting marriage, based on the idea that each letter has a different value. By adding up the values of each name and processing them, a marriage prediction is made.
+For those serious, please input with Arabic letters</string>
+    <string name="image_fb">Facebook</string>
+    <string name="app_ver">Version %1$s</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="no_data">No Data</string>
+    <string name="search">Search..</string>
+    <string name="online">Online</string>
+    <string name="noyet_login">Not Logged In</string>
+    <string name="client_id">249543266039-qshu3jolikr6nt7aseer7gfppgk5vc3q.apps.googleusercontent.com</string>
+
+    <string name="no_internet">No Internet</string>
+    <string name="logout">Logout</string>
+    <string name="favorite">Favorite</string>
+    <string name="prediksi">Prediction</string>
+    <string name="jodoh">Match</string>
+    <string name="loading">Loading data..</string>
+    <string name="comment_baru">Create Comment..</string>
+    <string name="yes">Yes</string>
+    <string name="pertanyaan">Do you</string>
+    <string name="comment_count">%1$d Comments</string>
+    <string name="suka_count">%1$d Likes</string>
+    <string name="accept">Agree</string>
+    <string name="no_accept">To log in and use all app functions, you must read and accept the Privacy Policy</string>
+    <string name="settings">Settings</string>
+    <string name="info">Information</string>
+    <string name="display_name">Display Name</string>
+    <string name="count_token">%1$d Token</string>
+    <string name="have_token">Tokens Owned</string>
+    <string name="token">TOKEN</string>
+    <string name="info_token">"Token is a ticket to process and analyze how compatible the couple is"</string>
+    <string name="info_token_value">"To get tokens you can buy them, get a bonus, or do advertising activities"</string>
+    <string name="beli_token">Buy Token</string>
+    <string name="harga_token">Rp. 6,000 for 5 Tokens</string>
+    <string name="bonus_token">Get Bonus Token</string>
+    <string name="click_bonus">Watch Ads and get a token</string>
+    <string name="result_publsih">PUBLICATION</string>
+    <string name="hasil_publish">Prediction Result Published</string>
+    <string name="label_count_token">Number of TOKENS</string>
+    <string name="language">Language Settings</string>
+
+    <string name="ambil_bonus">Get Bonus</string>
+    <string name="list_item_prediksi">List Hasil Prediksi</string>
+    <string name="input_cari_hasil_prediksi">Mencari hasil Prediksi</string>
+    <string name="list_comment">List Comment</string>
+    <string name="not_yet_token">Token tidak cukup</string>
+    <string name="add_favorite">Mau simpan ke koleksi favoritmu?</string>
+    <string name="info_publish">Maaf token anda %1$d tidak bisa melakukan prediksi. Silahkan masuk Setting publish di uncheklis atau anda menambah token dulu dengan mengambil bonus token atau membeli</string>
+    <string name="sukses_publish">"Nama sukses diprediski silahkan tunggu hasilnya.. "</string>
+    <string name="hasil_pencarian">Hasil Pencarian</string>
+    <string name="text_cari_kosong">Silahkan masukan ramal yang akan dicari</string>
+    <string name="data_cari_kosong">"Data yang dicari tidak ada "</string>
+    <string name="comment">Komentar</string>
+    <string name="comment_kosong">Belum ada Komentar</string>
+    <string name="info_bonus">Untuk mendapatkan bonus token anda harus menonton video iklan sampai selesai. /nApakah info ini terus tampil setiap tombol bonus diklik dan melanjutkan mabil bonus ?</string>
+</resources>
