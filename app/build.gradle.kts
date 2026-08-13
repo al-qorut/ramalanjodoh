@@ -10,14 +10,15 @@ plugins {
 
 android {
     namespace = "smk.adzikro.ramalanjodoh"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
+
 
     defaultConfig {
         applicationId = "smk.adzikro.ramalanjodoh"
-        minSdk = 28
-        targetSdk = 35
-        versionCode = 25
-        versionName = "4.1.5"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = 26
+        versionName = "4.2"
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -35,8 +36,10 @@ android {
         debug {
             isMinifyEnabled = true
             isShrinkResources = true
-            getDefaultProguardFile("proguard-android-optimize.txt")
-            //"proguard-rules.pro"
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
 
         }
 

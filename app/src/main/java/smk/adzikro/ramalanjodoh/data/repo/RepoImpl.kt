@@ -80,9 +80,9 @@ class RepoImpl @Inject constructor (
     override suspend fun getToken(): Int {
         return remote.getToken()
     }
-
-    override suspend fun addBeliToken(count: Long) {
-        remote.addBeliToken(count)
+    //fun addBeliToken(count : Long, onSuccess: (Long) -> Unit, onFailure: (Exception) -> Unit)
+    override fun addBeliToken(count: Long, onSuccess: (Long) -> Unit, onFailure: (Exception) -> Unit) {
+        remote.addBeliToken(count, onSuccess, onFailure)
     }
 
     override suspend fun addTokenBonus() {

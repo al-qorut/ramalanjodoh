@@ -149,15 +149,38 @@ class FireStore @Inject constructor(
         }
     }
 
-    suspend fun addBeliToken(count : Long){
-        try {
-            val doc = db.collection("users").document(context.config.userUid!!)
-            doc.update("token", FieldValue.increment(count)).await()
-        }catch (e :Exception){
-            e.printStackTrace()
+    fun addBeliToken(
+        count: Long,
+        onSuccess: (Long) -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        val userUid = context.config.userUid
+        if (userUid == null) {
+            onFailure(Exception("User UID is null"))
+            return
+        }
+
+        val docRef = db.collection("users").document(userUid)
+
+        db.runTransaction { transaction ->
+            // 1. Wajib baca data lama terlebih dahulu di dalam transaksi
+            val snapshot = transaction.get(docRef)
+            val currentToken = snapshot.getLong("token") ?: 0L
+            val newToken = currentToken + count
+
+            // 2. Tulis data baru ke Firestore
+            transaction.update(docRef, "token", newToken)
+
+            // 3. Kembalikan nilai token baru hasil perhitungan transaksi
+            newToken
+        }.addOnSuccessListener { newToken ->
+            // Dipanggil ketika transaksi sukses secara keseluruhan
+            onSuccess(newToken)
+        }.addOnFailureListener { exception ->
+            // Dipanggil ketika transaksi gagal
+            onFailure(exception)
         }
     }
-
     suspend fun getToken() : Int {
         return try {
             val document = db.collection("users").document(context.config.userUid!!).get().await()

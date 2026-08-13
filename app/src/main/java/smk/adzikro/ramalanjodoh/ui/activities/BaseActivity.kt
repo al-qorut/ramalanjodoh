@@ -9,6 +9,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.WindowMetrics
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -37,6 +38,7 @@ import smk.adzikro.ramalanjodoh.utils.GoogleMobileAdsConsentManager
 import smk.adzikro.ramalanjodoh.utils.toast
 import smk.adzikro.ramalanjodoh.viewmodels.MainViewModel
 import java.util.concurrent.atomic.AtomicBoolean
+import javax.inject.Inject
 
 @AndroidEntryPoint
 abstract class BaseActivity : AppCompatActivity() {
@@ -53,10 +55,11 @@ abstract class BaseActivity : AppCompatActivity() {
     val isLoaded: LiveData<Boolean> get() = _isLoaded
     private var rewardedAd: RewardedAd? = null
     private var isLoading = false
-
-    var billing: BillingManager? = null
+    @Inject
+    lateinit var billing: BillingManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         googleMobileAdsConsentManager =
             GoogleMobileAdsConsentManager.getInstance(applicationContext)
@@ -77,9 +80,10 @@ abstract class BaseActivity : AppCompatActivity() {
         }
         _isLoaded.value = false
 
-        billing = BillingManager(this)
-        billing?.startBillingConnection()
+        billing.initActivity(this)
+        billing.startBillingConnection()
     }
+
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus) {
@@ -98,7 +102,8 @@ abstract class BaseActivity : AppCompatActivity() {
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         }
     }
-    fun beliToken(){
+
+    fun beliToken() {
         billing?.beliToken()
     }
 
@@ -180,7 +185,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
             runOnUiThread {
                 // Load an ad on the main thread.
-                if(v!=null) {
+                if (v != null) {
                     loadBanner()
                 }
                 loadAd()
@@ -228,7 +233,7 @@ abstract class BaseActivity : AppCompatActivity() {
                     interstitialAd = ad
                     adIsLoading = false
                     _isLoaded.value = true
-                   // Toast.makeText(this@BaseActivity, "onAdLoaded()", Toast.LENGTH_SHORT).show()
+                    // Toast.makeText(this@BaseActivity, "onAdLoaded()", Toast.LENGTH_SHORT).show()
                 }
             },
         )
@@ -286,8 +291,14 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun addToken(token: Int) {
-        viewModel.addBeliToken(token.toLong())
-        toast(this, getString(R.string.bonus_token))
+        viewModel.addBeliToken(
+            token.toLong(),
+            onSuccess = {
+                toast(this, getString(R.string.bonus_token))
+            },
+            onFailure = { e ->
+                toast(this, getString(R.string.error, e))
+            })
     }
 
     fun showRewadedAds() {
@@ -319,7 +330,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 addToken(it.amount)
             }
         } else {
-           // Toast.makeText(this, "Ads is Loaded", Toast.LENGTH_LONG).show()
+            // Toast.makeText(this, "Ads is Loaded", Toast.LENGTH_LONG).show()
             Log.e(TAG, "Ads is Loaded")
         }
     }
@@ -342,6 +353,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onResume()
         adView?.resume()
     }
+
     companion object {
         private const val AD_REWARD_ID = "ca-app-pub-3624492980147085/8048807607"
         private const val AD_APP_ID = "ca-app-pub-3624492980147085~8894706455"

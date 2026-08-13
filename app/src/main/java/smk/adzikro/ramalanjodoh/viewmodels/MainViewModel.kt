@@ -49,11 +49,11 @@ constructor(
             }
         }
     }
-
-    fun addBeliToken(count: Long) {
+    //fun addBeliToken(count : Long, onSuccess: (Long) -> Unit, onFailure: (Exception) -> Unit)
+    fun addBeliToken(count: Long, onSuccess: (Long) -> Unit, onFailure: (Exception) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                remote.addBeliToken(count)
+                remote.addBeliToken(count, onSuccess, onFailure)
                 withContext(Dispatchers.Main) {
                     loadToken()
                 }
@@ -74,7 +74,11 @@ constructor(
             }
         }
     }
-
+    fun addTokenBonus(){
+        viewModelScope.launch(Dispatchers.IO) {
+            remote.addTokenBonus()
+        }
+    }
     fun loadToken() {
         viewModelScope.launch(Dispatchers.IO) {
             try {

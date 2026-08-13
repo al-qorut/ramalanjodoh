@@ -2,6 +2,7 @@ package smk.adzikro.ramalanjodoh.utils
 
 import android.content.Context
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
@@ -12,7 +13,9 @@ import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
-import com.android.tools.r8.internal.db
+import com.google.common.collect.ImmutableList
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,9 +23,12 @@ import kotlinx.coroutines.withContext
 import smk.adzikro.ramalanjodoh.ui.activities.BaseActivity
 import java.lang.ref.WeakReference
 import java.util.Collections.emptyList
-import com.google.common.collect.ImmutableList
+import javax.inject.Inject
 
-class BillingManager(private val context: Context) {
+@ActivityScoped
+class BillingManager @Inject constructor(
+    @ActivityContext private val context: Context,
+) {
     var productDetailsList = mutableListOf<ProductDetails>()
 
     private val scope = CoroutineScope(Dispatchers.Main)
@@ -81,27 +87,8 @@ class BillingManager(private val context: Context) {
     }
 
     private fun verifyPurchase(purchase: Purchase) {
-        val activity = getActivity() ?: return
         context.mydebug("DEBUG_BILLING: Memulai proses update data untuk produk asesi...")
-
-        // 1. Ambil multiplier/jalankan update Firestore terlebih dahulu
-        db.getTokenMultiplier(
-            onSuccess = { multiplier ->
-                // Update data di Firestore Anda
-                updateTokenCount(purchase, multiplier)
-
-                // 2. Jika Firestore SUKSES di-update, baru konsumsi produknya di Google Play
-                eksekusiConsumePlayStore(purchase)
-            },
-            onFailure = { e ->
-                activity.showErrorToast("Gagal update Firestore: ${e}")
-                // Fallback jika internet mati / firestore error tetap gunakan nilai standar
-                val tokenFallback = purchase.quantity * 25L
-                updateTokenCount(purchase, tokenFallback)
-
-                eksekusiConsumePlayStore(purchase)
-            }
-        )
+        updateTokenCount(purchase)
     }
     private fun eksekusiConsumePlayStore(purchase: Purchase) {
         val consumeParams = ConsumeParams.newBuilder()
@@ -117,16 +104,36 @@ class BillingManager(private val context: Context) {
         }
     }
 
-    private fun updateTokenCount(purchase: Purchase, tokenTambahan: Long) {
+    private fun updateTokenCount(purchase: Purchase) {
         val activity = getActivity() ?: return
-        activity.viewModel.addBeliToken(tokenTambahan)
-        activity.viewModel.getAsesor { asesor ->
-            asesor.asesi += purchase.quantity
-            activity.config.asesiCount = asesor.asesi
-            activity.viewModel.updateAsesor(asesor)
-        }
+        val tokenTambahan = purchase.quantity * 5
+        activity.viewModel.addBeliToken(tokenTambahan.toLong(),
+            onSuccess = { count ->
+                eksekusiConsumePlayStore(purchase)
+                context.toast("Sukses tambah token $tokenTambahan menjadi $count")
+            },
+            onFailure = { e ->
+                context.showErrorToast("Gagal menyimpan $e")
+                tampilkanDialogGagalBeli(purchase)
+            }
+        )
     }
 
+    private fun tampilkanDialogGagalBeli(purchase: Purchase) {
+        AlertDialog.Builder(context)
+            .setTitle("Koneksi Gagal")
+            .setMessage("Pembelian Anda berhasil di Play Store, namun gagal disimpan ke akun Anda. Ingin mencoba simpan kembali?")
+            .setPositiveButton("Coba Lagi") { _, _ ->
+                // Panggil ulang fungsi yang sama menggunakan data purchase yang ada
+                updateTokenCount(purchase)
+            }
+            .setNegativeButton("Bantuan / Batal") { dialog, _ ->
+                context.toast("Pembelian menggantung. Jika tidak dicoba lagi, uang Anda akan otomatis kembali dalam 3 hari.")
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
+    }
 
     fun startBillingConnection() {
         if (billingClient.isReady) return
@@ -207,7 +214,7 @@ class BillingManager(private val context: Context) {
 
 
     fun beliToken() {
-        executePurchaseFlow("token_")
+        executePurchaseFlow("token_ramal")
     }
 
 }

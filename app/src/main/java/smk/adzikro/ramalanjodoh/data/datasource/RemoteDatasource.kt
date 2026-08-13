@@ -31,6 +31,6 @@ class RemoteDatasource @Inject constructor(
 
     suspend fun getToken() = remote.getToken()
     suspend fun addTokenBonus() = remote.addTokenBonus()
-    suspend fun addBeliToken(count : Long) = remote.addBeliToken(count)
+    fun addBeliToken(count : Long, onSuccess: (Long) -> Unit, onFailure: (Exception) -> Unit) = remote.addBeliToken(count, onSuccess, onFailure)
     suspend fun useToken()  = remote.useToken()
 }

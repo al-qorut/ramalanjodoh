@@ -41,11 +41,7 @@ class RemoteViewModel @Inject constructor(
         }
     }
 
-    fun addBeliToken(count : Long){
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.addBeliToken(count)
-        }
-    }
+
     
     fun loadToken() {
         viewModelScope.launch(Dispatchers.IO) {

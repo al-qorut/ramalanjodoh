@@ -79,5 +79,10 @@ public *;
 -keep class smk.adzikro.ramalanjodoh.data.models.Ramalx { *; }
 -keep class smk.adzikro.ramalanjodoh.data.models.Userx { *; }
 -keep class smk.adzikro.ramalanjodoh.data.models.Comment { *; }
-
+-dontwarn smk.adzikro.ramalanjodoh.Hilt_MyApp
+-dontwarn smk.adzikro.ramalanjodoh.ui.activities.Hilt_BaseActivity
+-dontwarn smk.adzikro.ramalanjodoh.ui.activities.Hilt_CommentActivity
+-dontwarn smk.adzikro.ramalanjodoh.ui.activities.Hilt_MainActivity
+-dontwarn smk.adzikro.ramalanjodoh.ui.activities.Hilt_SettingsActivity
+-dontwarn smk.adzikro.ramalanjodoh.ui.fragments.online.Hilt_OnlineFragment
 
