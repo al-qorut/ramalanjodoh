@@ -22,7 +22,7 @@ open class Config @Inject constructor(val context: Context) {
         set(value) = prefs.edit().putString(EMAIL, value).apply()
 
     var isResulPublish: Boolean
-        get() = prefs.getBoolean(RESULT_PUBLISH,true)
+        get() = prefs.getBoolean(RESULT_PUBLISH,false)
         set(value) = prefs.edit().putBoolean(RESULT_PUBLISH, value).apply()
 
     var isInfoShow: Boolean

@@ -8,15 +8,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.alqorut.mystory.views.ConfirmationDialog
-import smk.adzikro.ramalanjodoh.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import smk.adzikro.ramalanjodoh.R
 import smk.adzikro.ramalanjodoh.data.models.Ramal
+import smk.adzikro.ramalanjodoh.databinding.ActivityMainBinding
 import smk.adzikro.ramalanjodoh.utils.AppUpdateManagerUtil
 import smk.adzikro.ramalanjodoh.utils.InternetCheck
+import smk.adzikro.ramalanjodoh.utils.applySystemBarsPadding
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
@@ -31,6 +32,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.mainCoordinator.applySystemBarsPadding(applyTop = true, applyBottom = true)
         v = binding.adViewContainer
         viewModel.loadKata()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment

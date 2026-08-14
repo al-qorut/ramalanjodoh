@@ -24,14 +24,15 @@ import smk.adzikro.ramalanjodoh.ui.activities.MainActivity
 import smk.adzikro.ramalanjodoh.utils.DataMapper
 import smk.adzikro.ramalanjodoh.utils.config
 import smk.adzikro.ramalanjodoh.utils.confirmDialog
+import smk.adzikro.ramalanjodoh.utils.mydebug
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private var click = 0
     private var hitung = false
-    private lateinit var naw: String
-    private lateinit var nal: String
+    private var naw: String = ""
+    private var nal: String = ""
     private var ha: Ramal? = null
     private var loading: CountDownTimer? = null
     private var kata: List<String> = emptyList()
@@ -73,7 +74,7 @@ class HomeFragment : Fragment() {
                 }
             }
             proses.setOnClickListener {
-
+                context?.mydebug("tah di klik $nal, dan $naw")
                 if (hitung) {
                     reset()
                 } else {
@@ -86,21 +87,26 @@ class HomeFragment : Fragment() {
                     if (nal.isEmpty() || naw.isEmpty()) {
                         return@setOnClickListener
                     }
+                    context?.mydebug("lolos test empty $nal, dan $naw")
                     if (nal == naw) {
                         ConfirmationDialog(requireActivity(), message = String.format(getString(R.string.sama), nal), negative = 0) {}
                         return@setOnClickListener
                     }
-                    if (kata.contains(nal) || kata.contains(naw)) {
+                    context?.mydebug("lolos nama sama $nal, dan $naw")
+                    if (kata.contains(nal.lowercase()) || kata.contains(naw.lowercase())) {
                         ConfirmationDialog(requireActivity(), message =String.format(getString(R.string.ada), nal, naw), negative = 0){}
-                        return@setOnClickListener
+                        //return@setOnClickListener
                     }
+                    context?.mydebug("mengandung kata $nal, dan $naw")
                     if (cekHuruf(nal) || cekHuruf(naw)) {
                         ConfirmationDialog(requireActivity(), message =getString(R.string.tdbenar), negative = 0){}
                         return@setOnClickListener
                     }
-                    if (binding.jalu.text.toString().length < 3 || binding.bikang.text.toString().length < 3) {
+                    context?.mydebug("cek huruf $nal, dan $naw")
+                    if (nal.length < 3 || naw.length < 3) {
                         return@setOnClickListener
                     }
+                    context?.mydebug("sebelum hitung $nal, dan $naw")
                     hitung()
                 }
 
@@ -204,6 +210,7 @@ class HomeFragment : Fragment() {
         animatorSet.start()
     }
     private fun hitung() {
+        context?.mydebug("$nal, dan $naw")
         hitung = true
         binding.proses.visibility = View.INVISIBLE
         binding.input.visibility = View.GONE
