@@ -31,7 +31,6 @@ class HomeFragment : Fragment() {
     private var nal: String = ""
     private var ha: Ramal? = null
     private var loading: CountDownTimer? = null
-    // private var kata: List<String> = emptyList()
 
     private var forbiddenWords: Set<String> = emptySet()
 
@@ -118,15 +117,9 @@ class HomeFragment : Fragment() {
             imm.showSoftInput(jalu, InputMethodManager.SHOW_IMPLICIT)
         }
 
-//        (context as MainActivity).viewModel.kataList.observe(viewLifecycleOwner) {
-//            kata = it
-//        }
-
         (context as MainActivity).viewModel.forbiddenWords.observe(viewLifecycleOwner) {
             forbiddenWords = it
         }
-
-
     }
 
 
@@ -144,9 +137,6 @@ class HomeFragment : Fragment() {
                 return@confirmDialog
             })
     }
-
-
-
 
 
     private fun reset() {

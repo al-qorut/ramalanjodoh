@@ -14,5 +14,11 @@
     <color name="navi">#2D3D4F</color>
 
     <color name="default_background_color">@color/theme_dark_background_color</color>
-
+    <color name="elegant_background">#F8F9FA</color>
+    <color name="elegant_card">#FFFFFF</color>
+    <color name="elegant_primary">#1A1A1A</color>
+    <color name="elegant_active">#0F9D58</color> <!-- Hijau Emerald lembut untuk ON -->
+    <color name="elegant_inactive">#E0E0E0</color> <!-- Abu-abu lembut untuk OFF -->
+    <color name="text_dark">#212121</color>
+    <color name="text_muted">#757575</color>
 </resources>
