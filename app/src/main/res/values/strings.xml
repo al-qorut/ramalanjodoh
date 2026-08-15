@@ -142,4 +142,6 @@ Bagi yang serius silahkan input dengan huruf arab</string>
     <string name="comment_kosong">Belum ada Komentar</string>
     <string name="info_bonus">Untuk mendapatkan bonus token anda harus menonton video iklan sampai selesai. /nApakah melanjutkan ambil bonus dan info ini jangan tampil kembali ?</string>
     <string name="error">Eror %s</string>
+    <string name="analisis_pro">Prediksi Profesional</string>
+    <string name="ahli_hikmah">AHLI HIKMAH</string>
 </resources>

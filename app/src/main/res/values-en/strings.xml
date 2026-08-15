@@ -143,4 +143,6 @@ For those serious, please input with Arabic letters</string>
     <string name="comment_kosong">Belum ada Komentar</string>
     <string name="info_bonus">Untuk mendapatkan bonus token anda harus menonton video iklan sampai selesai. /nApakah info ini terus tampil setiap tombol bonus diklik dan melanjutkan mabil bonus ?</string>
     <string name="error">Eror %s</string>
+    <string name="analisis_pro">Prediksi Profesional</string>
+    <string name="ahli_hikmah">AHLI HIKMAH</string>
 </resources>
