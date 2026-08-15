@@ -34,7 +34,8 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         binding.mainCoordinator.applySystemBarsPadding(applyTop = true, applyBottom = true)
         v = binding.adViewContainer
-        viewModel.loadKata()
+      //  viewModel.loadKata()
+        viewModel.getForbiddenWords()
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
         val nav = navHostFragment.navController
         binding.bottomNavView.setupWithNavController(nav)

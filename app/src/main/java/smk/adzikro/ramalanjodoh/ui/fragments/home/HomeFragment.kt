@@ -12,16 +12,12 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.alqorut.mystory.views.ConfirmationDialog
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import smk.adzikro.ramalanjodoh.R
 import smk.adzikro.ramalanjodoh.data.models.Ramal
 import smk.adzikro.ramalanjodoh.databinding.FragmentHomeBinding
 import smk.adzikro.ramalanjodoh.ui.activities.MainActivity
-import smk.adzikro.ramalanjodoh.utils.DataMapper
+import smk.adzikro.ramalanjodoh.utils.JodohHelper
 import smk.adzikro.ramalanjodoh.utils.config
 import smk.adzikro.ramalanjodoh.utils.confirmDialog
 import smk.adzikro.ramalanjodoh.utils.mydebug
@@ -35,8 +31,9 @@ class HomeFragment : Fragment() {
     private var nal: String = ""
     private var ha: Ramal? = null
     private var loading: CountDownTimer? = null
-    private var kata: List<String> = emptyList()
-    private val lis = mutableListOf<String>() //cek 3 huruf yang sama
+    // private var kata: List<String> = emptyList()
+
+    private var forbiddenWords: Set<String> = emptySet()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,8 +54,8 @@ class HomeFragment : Fragment() {
         animasi()
         binding.apply {
             getBonus.setOnClickListener {
-                if(requireContext().config.userUid!=null) {
-                    if(requireContext().config.isInfoShow) {
+                if (requireContext().config.userUid != null) {
+                    if (requireContext().config.isInfoShow) {
                         ConfirmationDialog(
                             requireActivity(),
                             message = getString(R.string.info_bonus)
@@ -66,11 +63,15 @@ class HomeFragment : Fragment() {
                             requireContext().config.isInfoShow = false
                             (context as MainActivity).showRewadedAds()
                         }
-                    }else {
+                    } else {
                         (context as MainActivity).showRewadedAds()
                     }
-                }else{
-                    ConfirmationDialog(requireActivity(), message = getString(R.string.noyet_login), negative = 0) {}
+                } else {
+                    ConfirmationDialog(
+                        requireActivity(),
+                        message = getString(R.string.noyet_login),
+                        negative = 0
+                    ) {}
                 }
             }
             proses.setOnClickListener {
@@ -80,34 +81,35 @@ class HomeFragment : Fragment() {
                 } else {
                     nal = binding.jalu.text.toString()
                     naw = binding.bikang.text.toString()
-                    if (requireContext().config.userUid!=null && requireContext().config.isResulPublish && (context as MainActivity).token<1) {
-                        ConfirmationDialog(requireActivity(), message = String.format(getString(R.string.info_publish), (context as MainActivity).token), negative = 0) {}
+                    if (requireContext().config.userUid != null && requireContext().config.isResulPublish && (context as MainActivity).token < 1) {
+                        ConfirmationDialog(
+                            requireActivity(),
+                            message = String.format(
+                                getString(R.string.info_publish),
+                                (context as MainActivity).token
+                            ),
+                            negative = 0
+                        ) {}
                         return@setOnClickListener
                     }
-                    if (nal.isEmpty() || naw.isEmpty()) {
-                        return@setOnClickListener
-                    }
-                    context?.mydebug("lolos test empty $nal, dan $naw")
-                    if (nal == naw) {
-                        ConfirmationDialog(requireActivity(), message = String.format(getString(R.string.sama), nal), negative = 0) {}
-                        return@setOnClickListener
-                    }
-                    context?.mydebug("lolos nama sama $nal, dan $naw")
-                    if (kata.contains(nal.lowercase()) || kata.contains(naw.lowercase())) {
-                        ConfirmationDialog(requireActivity(), message =String.format(getString(R.string.ada), nal, naw), negative = 0){}
-                        //return@setOnClickListener
-                    }
-                    context?.mydebug("mengandung kata $nal, dan $naw")
-                    if (cekHuruf(nal) || cekHuruf(naw)) {
-                        ConfirmationDialog(requireActivity(), message =getString(R.string.tdbenar), negative = 0){}
-                        return@setOnClickListener
-                    }
-                    context?.mydebug("cek huruf $nal, dan $naw")
-                    if (nal.length < 3 || naw.length < 3) {
-                        return@setOnClickListener
-                    }
-                    context?.mydebug("sebelum hitung $nal, dan $naw")
-                    hitung()
+                    val jodohHelper = JodohHelper()
+                    jodohHelper.forbiddenWords = forbiddenWords
+                    jodohHelper.genResult(
+                        context = requireContext(),
+                        kata1 = nal,
+                        kata2 = naw,
+                        onSuccess = { dataRamal ->
+                            // Lolos validasi & berhasil membuat objek Ramal
+                            // Simpan ke DB / Tampilkan ke UI
+                            println("Hasil Ramalan: ${dataRamal.desc}")
+                            ha = dataRamal
+                            hasilHitung(dataRamal)
+                        },
+                        onError = { errorMessage ->
+                            // Gagal validasi input (Tampilkan Toast / error di EditText)
+                            showInfo(errorMessage)
+                        })
+                    // hitung()
                 }
 
             }
@@ -115,14 +117,16 @@ class HomeFragment : Fragment() {
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(jalu, InputMethodManager.SHOW_IMPLICIT)
         }
-        (context as MainActivity).viewModel.kataList.observe(viewLifecycleOwner) {
-            kata = it
+
+//        (context as MainActivity).viewModel.kataList.observe(viewLifecycleOwner) {
+//            kata = it
+//        }
+
+        (context as MainActivity).viewModel.forbiddenWords.observe(viewLifecycleOwner) {
+            forbiddenWords = it
         }
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                buatList()
-            }
-        }
+
+
     }
 
 
@@ -131,37 +135,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun showMessage(s: String) {
-        confirmDialog(requireContext(), s,
+        confirmDialog(
+            requireContext(), s,
             onYesClicked = {
-                hitung()
+               // hitung()
             },
             onNoClicked = {
                 return@confirmDialog
             })
     }
 
-    private fun buatList() {
-        var c = 'A'
-        while (c <= 'Z') {
-            var x = ""
-            for (i in 1..3) {
-                x += c
-            }
-            lis.add(x)
-            ++c
-        }
-    }
 
-    private fun cekHuruf(huruf: String): Boolean {
-        val h = huruf.uppercase()
 
-        var hasil = false
-        lis.forEach {
-            if (h.contains(it, true))
-                hasil = true
-        }
-        return hasil
-    }
+
 
     private fun reset() {
         binding.apply {
@@ -191,7 +177,7 @@ class HomeFragment : Fragment() {
            // viewModel.addRamal(y)
         }
     } */
-    private fun animasi(){
+    private fun animasi() {
         val textView = binding.getBonus
         val fadeInOut = ObjectAnimator.ofFloat(textView, "alpha", 0f, 1f, 0f)
         fadeInOut.duration = 2000 // Durasi untuk fade in dan fade out
@@ -209,24 +195,23 @@ class HomeFragment : Fragment() {
         animatorSet.playTogether(fadeInOut, scaleX, scaleY)
         animatorSet.start()
     }
-    private fun hitung() {
+
+    private fun hasilHitung(ramal: Ramal?) {
+        if(ramal==null) return
         context?.mydebug("$nal, dan $naw")
         hitung = true
         binding.proses.visibility = View.INVISIBLE
         binding.input.visibility = View.GONE
         val pulseAnimation = AnimationUtils.loadAnimation(context, R.anim.pulse)
         binding.imageView2.startAnimation(pulseAnimation)
-        DataMapper.genResult(requireContext(), nal, naw) {
-            ha = it
-            if (requireContext().config.isResulPublish && (context as MainActivity).token>0) {
-                (context as MainActivity).publishRamal(it)
-                (context as MainActivity).viewModel.addRamal(it)
-            }else{
-                it.status = 2
-                (context as MainActivity).viewModel.addRamal(it)
-            }
-            insertDataObserver()
+        if (requireContext().config.isResulPublish && (context as MainActivity).token > 0) {
+            (context as MainActivity).publishRamal(ramal)
+            (context as MainActivity).viewModel.addRamal(ramal)
+        } else {
+            ramal.status = 2
+            (context as MainActivity).viewModel.addRamal(ramal)
         }
+        insertDataObserver()
         hitungJodoh()
         loading?.start()
     }

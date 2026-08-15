@@ -15,12 +15,6 @@ data class Ramal(
     var desc : String,
     var date : String= getCurrentDateTime(),
     var ilustratsi : Int,
-    /*
-    *  0 = lokal & not favorite
-    *  1 = lokal & favorite
-    *  2 = global & not favorite
-    *  3 = global & favorite
-    * */
     var status : Int = 0
 ){
     companion object {

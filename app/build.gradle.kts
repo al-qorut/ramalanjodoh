@@ -57,7 +57,6 @@ android {
 
     }
 
-
 }
 ksp {
     arg("room.schemaLocation", "$projectDir/schemas")
@@ -75,6 +74,7 @@ dependencies {
     implementation(libs.bundles.navigation)
     implementation(libs.lotte)
     implementation(libs.guava)
+    implementation(libs.ibm.icu)
     //firebase
     implementation(libs.bundles.firebase)
     implementation(libs.google.play.service.auth)
@@ -84,6 +84,9 @@ dependencies {
    //IAP
     implementation(libs.billing.ktx)
     implementation(libs.bundles.appudapte)
+
+    //Login
+    implementation(libs.bundles.login)
 
     //proguard
     implementation(libs.bundles.proguard)

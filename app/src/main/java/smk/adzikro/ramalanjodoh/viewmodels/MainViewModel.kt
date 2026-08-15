@@ -147,6 +147,16 @@ constructor(
             }
         }
     }
+    val forbiddenWords : MutableLiveData<Set<String>> = MutableLiveData()
+
+    fun getForbiddenWords(){
+        if(forbiddenWords.value == null){
+            viewModelScope.launch(Dispatchers.IO) {
+                val load = repo.getForbiddenWords()
+                forbiddenWords.postValue(load)
+            }
+        }
+    }
 
     fun addRamalx(ramal: Ramal) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -158,7 +168,9 @@ constructor(
 
         }
     }
-
+    suspend fun getForbiddenWordsx() : HashSet<String>{
+        return repo.getForbiddenWords()
+    }
     suspend fun publishRamal(ramal: Ramal): String {
         return try {
             remote.addRamalx(ramal)

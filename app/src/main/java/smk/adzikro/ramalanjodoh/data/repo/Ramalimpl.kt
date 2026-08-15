@@ -13,12 +13,43 @@ import smk.adzikro.ramalanjodoh.data.models.Ramal
 import smk.adzikro.ramalanjodoh.data.models.RamalDao
 import java.io.BufferedReader
 import java.io.InputStreamReader
-
 import javax.inject.Inject
 
 class Ramalimpl @Inject constructor(
     private val context: Context,
     private val dao: RamalDao) :RepoRamal {
+
+    @Volatile
+    private var cachedForbiddenWords: HashSet<String>? = null
+
+    override suspend fun getForbiddenWords(): HashSet<String> = withContext(Dispatchers.IO) {
+        // Return dari cache jika sudah pernah dimuat
+        cachedForbiddenWords?.let { return@withContext it }
+
+        // Inisialisasi HashSet dengan perkiraan kapasitas (31k kata + buffer)
+        // Menentukan initialCapacity mencegah pembesaran memori berulang kali
+        val set = HashSet<String>(35000)
+
+        try {
+            context.resources.openRawResource(R.raw.katax).use { inputStream ->
+                BufferedReader(InputStreamReader(inputStream)).useLines { lines ->
+                    lines.forEach { line ->
+                        // Jika CSV memiliki baris kosong atau spasi, bersihkan dahulu
+                        val trimmedWord = line.trim().lowercase()
+                        if (trimmedWord.isNotEmpty()) {
+                            // Jika CSV Anda dipisahkan koma dalam 1 baris, gunakan: line.split(",")
+                            set.add(trimmedWord)
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        cachedForbiddenWords = set
+        return@withContext set
+    }
+
     override suspend fun getListAll(): List<Ramal> {
         return dao.getListAll()
     }

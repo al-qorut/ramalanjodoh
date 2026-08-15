@@ -14,4 +14,6 @@ interface RepoRamal {
     suspend fun updateRamal(ramal: Ramal) : Int
     suspend fun getListKata():List<String>
 
+    suspend fun getForbiddenWords() : HashSet<String>
+
 }
