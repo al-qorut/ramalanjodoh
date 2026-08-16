@@ -30,7 +30,10 @@ fun dateToString(date: Date?): String {
     val dateFormat = SimpleDateFormat("EEE, MMM yyyy HH:mm:ss", Locale.getDefault())
     return dateFormat.format(date)
 }
-
+fun getCurrentDateTime(): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+    return dateFormat.format(Date())
+}
 fun toRamalx(ramal : Ramal) : Ramalx {
     return Ramalx(
         ramalid = UUID.randomUUID().toString(),

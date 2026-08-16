@@ -3,6 +3,7 @@ package smk.adzikro.ramalanjodoh.ui.fragments.home
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.app.NotificationCompat.getColor
 import androidx.fragment.app.Fragment
 import com.alqorut.mystory.views.ConfirmationDialog
 import smk.adzikro.ramalanjodoh.R
@@ -93,24 +95,26 @@ class HomeFragment : Fragment() {
                     }
                     val jodohHelper = JodohHelper()
                     jodohHelper.forbiddenWords = forbiddenWords
+                    jodohHelper.isActionPro = requireContext().config.isAnalisisPro
+                    jodohHelper.tokenCount = (context as MainActivity).token
                     jodohHelper.genResult(
                         context = requireContext(),
                         kata1 = nal,
                         kata2 = naw,
                         onSuccess = { dataRamal ->
-                            // Lolos validasi & berhasil membuat objek Ramal
-                            // Simpan ke DB / Tampilkan ke UI
-                            println("Hasil Ramalan: ${dataRamal.desc}")
+                            context?.mydebug("Hasil Ramalan: ${dataRamal.desc}")
                             ha = dataRamal
                             hasilHitung(dataRamal)
                         },
                         onError = { errorMessage ->
-                            // Gagal validasi input (Tampilkan Toast / error di EditText)
                             showInfo(errorMessage)
                         })
-                    // hitung()
                 }
 
+            }
+            tombolState(!requireContext().config.isAnalisisPro)
+            buttonOff.setOnClickListener {
+                tombolState(requireContext().config.isAnalisisPro)
             }
             jalu.requestFocus()
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -121,6 +125,23 @@ class HomeFragment : Fragment() {
             forbiddenWords = it
         }
     }
+    private fun tombolState(state: Boolean) {
+        requireContext().config.isAnalisisPro = !state
+
+        binding.buttonOff.apply {
+            text = if (state) getString(R.string.tomboloff) else getString(R.string.tombolon)
+
+            // Ambil warna berdasarkan state
+            val warnaSesuaiState = if (state) requireContext().getColor(R.color.text_muted) else requireContext().getColor(R.color.elegant_active)
+            val warnaStrokeSesuaiState = if (state) requireContext().getColor(R.color.text_muted) else requireContext().getColor(R.color.elegant_active)
+
+            // Perbaikan properti yang tepat
+            setTextColor(warnaSesuaiState)
+            iconTint = ColorStateList.valueOf(warnaSesuaiState)
+            strokeColor = ColorStateList.valueOf(warnaStrokeSesuaiState)
+        }
+    }
+
 
 
     private fun showInfo(s: String) {
@@ -148,6 +169,7 @@ class HomeFragment : Fragment() {
             imageView2.setImageResource(R.drawable.bg)
             textHitung.text = getString(R.string.action_hitung)
             input.visibility = View.VISIBLE
+            analisisPro.visibility = View.VISIBLE
         }
         hitung = false
         (context as MainActivity).viewModel.loadToken()
@@ -192,6 +214,7 @@ class HomeFragment : Fragment() {
         hitung = true
         binding.proses.visibility = View.INVISIBLE
         binding.input.visibility = View.GONE
+        binding.analisisPro.visibility = View.GONE
         val pulseAnimation = AnimationUtils.loadAnimation(context, R.anim.pulse)
         binding.imageView2.startAnimation(pulseAnimation)
         if (requireContext().config.isResulPublish && (context as MainActivity).token > 0) {
@@ -240,6 +263,7 @@ class HomeFragment : Fragment() {
             hasilText.text = ha?.desc
             imageView2.setImageResource(ha!!.ilustratsi)
             input.visibility = View.GONE
+            analisisPro.visibility = View.GONE
         }
         binding.imageView2.clearAnimation()
     }

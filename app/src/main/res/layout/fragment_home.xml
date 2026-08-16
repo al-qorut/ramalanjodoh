@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginTop="@dimen/_10dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/_10dp">
 
     <TextView
         android:id="@+id/get_bonus"
@@ -16,42 +15,50 @@
         android:elevation="@dimen/_16dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center"
-        android:textColor="@color/white"
         android:text="@string/ambil_bonus"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toTopOf="parent" />
-        <RelativeLayout
-            android:fitsSystemWindows="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fitsSystemWindows="true"
+        tools:ignore="MissingConstraints">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/colorAccent"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="20dp">
+
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                ads:cardBackgroundColor="@color/colorAccent"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="20dp">
+                android:fillViewport="true">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp">
 
                     <ImageView
                         android:id="@+id/imageView2"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/_80dp"
+                        android:layout_marginTop="@dimen/_2dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/icon"
-                        ads:layout_constraintEnd_toEndOf="parent"
-                        ads:layout_constraintHeight_percent="0.3"
-                        ads:layout_constraintStart_toStartOf="parent"
-                        ads:layout_constraintTop_toTopOf="parent"
-                        ads:layout_constraintWidth_percent="0.5" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHeight_percent="0.3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.5" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/view_hasil"
@@ -60,11 +67,12 @@
                         android:layout_margin="10dp"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:visibility="gone"
-                        ads:layout_constraintTop_toBottomOf="@+id/imageView2"
                         app:cardBackgroundColor="@color/colorPrimary"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="20dp"
-                        tools:layout_editor_absoluteX="10dp">
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -88,15 +96,17 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
+                    <!-- CARD INPUT -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        ads:layout_constraintTop_toBottomOf="@+id/view_hasil"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="20dp"
-                        tools:layout_editor_absoluteX="4dp">
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view_hasil">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -109,11 +119,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                ads:layout_constraintEnd_toEndOf="parent"
-                                ads:layout_constraintStart_toStartOf="parent"
-                                ads:layout_constraintTop_toTopOf="parent"
                                 app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
-                                tools:layout_editor_absoluteX="1dp">
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/jalu"
@@ -127,12 +136,11 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                ads:layout_constraintBottom_toBottomOf="parent"
-                                ads:layout_constraintEnd_toEndOf="parent"
-                                ads:layout_constraintStart_toStartOf="parent"
-                                ads:layout_constraintTop_toBottomOf="@+id/textInputLayout"
                                 app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
-                                tools:layout_editor_absoluteX="1dp">
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/bikang"
@@ -143,24 +151,93 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
+                    <!-- ANALISIS PRO (Diletakkan di bawah input) -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/analisis_pro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/input">
 
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/elegant_card"
+                            app:cardCornerRadius="24dp"
+                            app:cardElevation="2dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:strokeWidth="0dp">
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="8dp">
+
+                                <TextView
+                                    android:id="@+id/textViewStatusLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:letterSpacing="0.1"
+                                    android:text="@string/analisis_pro"
+                                    android:textColor="@color/text_muted"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewStatus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="@string/ahli_hikmah"
+                                    android:textColor="@color/text_dark"
+                                    android:textSize="28sp" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/buttonOff"
+                                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                    android:layout_width="120dp"
+                                    android:layout_height="56dp"
+                                    android:text="@string/tomboloff"
+                                    android:textColor="@color/text_muted"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    app:cornerRadius="28dp"
+                                    app:icon="@android:drawable/ic_lock_power_off"
+                                    app:iconTint="@color/text_muted"
+                                    app:strokeColor="@color/elegant_inactive"
+                                    app:strokeWidth="1.5dp" />
+
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- TOMBOL PROSES (Diletakkan di bawah analisis_pro) -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/proses"
                         android:layout_width="200dp"
                         android:layout_height="70dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="0dp"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        ads:layout_constraintBottom_toBottomOf="parent"
-                        ads:layout_constraintEnd_toEndOf="parent"
-                        ads:layout_constraintStart_toStartOf="parent"
-                        ads:layout_constraintTop_toBottomOf="@+id/input"
                         app:cardBackgroundColor="@color/colorPrimary"
                         app:cardCornerRadius="15dp"
-                        app:cardElevation="20dp">
+                        app:cardElevation="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/analisis_pro">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -179,12 +256,12 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="1.0" />
+                                app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-        </RelativeLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

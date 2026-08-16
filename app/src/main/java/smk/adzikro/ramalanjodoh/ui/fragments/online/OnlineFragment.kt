@@ -2,6 +2,7 @@ package smk.adzikro.ramalanjodoh.ui.fragments.online
 
 import android.content.Context
 import android.content.Intent
+import android.credentials.GetCredentialException
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -10,6 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.GetCredentialResponse
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -18,11 +23,11 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alqorut.mystory.views.ConfirmationDialog
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
+import com.google.android.datatransport.runtime.scheduling.SchedulingConfigModule_ConfigFactory.config
 import com.google.android.gms.tasks.Task
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -48,6 +53,8 @@ import smk.adzikro.ramalanjodoh.utils.shareImage
 import smk.adzikro.ramalanjodoh.utils.toRamal
 import smk.adzikro.ramalanjodoh.utils.toast
 import smk.adzikro.ramalanjodoh.viewmodels.RemoteViewModel
+import java.security.MessageDigest
+import java.util.UUID
 
 @AndroidEntryPoint
 class OnlineFragment : Fragment(), RamalxAdapter.OnItemClickCallback {
@@ -56,10 +63,12 @@ class OnlineFragment : Fragment(), RamalxAdapter.OnItemClickCallback {
     private val binding get() = _binding!!
     val viewModel by viewModels<RemoteViewModel>()
     private lateinit var auth: FirebaseAuth
-    private lateinit var googleSignInClient: GoogleSignInClient
+    //private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var adapterRamal: RamalxAdapter
-    private val RC_SIGN_IN = 9001
+   // private val RC_SIGN_IN = 9001
     private var cariText: String? = ""
+
+    private lateinit var credentialManager: CredentialManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,11 +76,7 @@ class OnlineFragment : Fragment(), RamalxAdapter.OnItemClickCallback {
     ): View {
         _binding = FragmentOnlineBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+        credentialManager = CredentialManager.create(requireContext())
         auth = Firebase.auth
         loading()
         return binding.root
@@ -219,37 +224,74 @@ class OnlineFragment : Fragment(), RamalxAdapter.OnItemClickCallback {
                 }
             }
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                val account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-                firebaseAuthWithGoogle(account.idToken!!)
-            } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e)
-            }
-        }
-    }
     private fun requestLogin() {
         InternetCheck {
             if (it) {
-                // launcher.launch(getSignInClient(context).beginSignIn()
-                signIn()
+                signInWithCredentialManager()
             } else {
                 toast(requireContext(), R.string.no_internet.toString())
             }
         }
     }
+    private fun signInWithCredentialManager() {
+        // 1. Buat request Google ID Option
+        val rawNonce = UUID.randomUUID().toString()
+        val bytes = rawNonce.toByteArray()
+        val md = MessageDigest.getInstance("SHA-256")
+        val digest = md.digest(bytes)
+        val hashedNonce = digest.fold("") { str, it -> str + "%02x".format(it) }
 
-    private fun signIn() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
+            .setFilterByAuthorizedAccounts(false) // Wajib false agar muncul pilihan akun jika belum pernah login
+            .setServerClientId(getString(R.string.default_web_client_id))
+            .setAutoSelectEnabled(false) // Set false dulu untuk testing agar dialog selalu muncul
+            .setNonce(hashedNonce)
+            .build()
+
+        val request: GetCredentialRequest = GetCredentialRequest.Builder()
+            .addCredentialOption(googleIdOption)
+            .build()
+
+        lifecycleScope.launch {
+            try {
+                val result = credentialManager.getCredential(
+                    request = request,
+                    context = requireActivity()
+                )
+                handleSignIn(result)
+            } catch (e: androidx.credentials.exceptions.NoCredentialException) {
+                // Ditangkap khusus jika tidak ada akun Google di HP/Emulator
+                Log.e(TAG, "No credentials available: ${e.message}", e)
+                toast(context!!,"Tidak ada akun Google yang ditemukan di perangkat ini. Silakan tambahkan akun terlebih dahulu.")
+            } catch (e: GetCredentialException) {
+                Log.e(TAG, "GetCredentialException: ${e.message}", e)
+                toast(context!!,"Gagal melakukan login: ${e.localizedMessage}")
+            } catch (e: GoogleIdTokenParsingException) {
+                Log.e(TAG, "GoogleIdTokenParsingException: ${e.message}", e)
+            }
+        }
+    }
+
+    private fun handleSignIn(result: GetCredentialResponse) {
+        when (val credential = result.credential) {
+            is CustomCredential -> {
+                if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
+                    try {
+                        val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+                        val googleIdToken = googleIdTokenCredential.idToken
+                        firebaseAuthWithGoogle(googleIdToken)
+                    } catch (e: GoogleIdTokenParsingException) {
+                        Log.e(TAG, "Received an invalid google id token response", e)
+                    }
+                } else {
+                    Log.e(TAG, "Unexpected credential type")
+                }
+            }
+            else -> {
+                Log.e(TAG, "Unexpected type of credential")
+            }
+        }
     }
     private fun signOut() {
         Firebase.auth.signOut()

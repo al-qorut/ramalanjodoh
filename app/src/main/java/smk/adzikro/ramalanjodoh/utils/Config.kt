@@ -25,6 +25,10 @@ open class Config @Inject constructor(val context: Context) {
         get() = prefs.getBoolean(RESULT_PUBLISH,false)
         set(value) = prefs.edit().putBoolean(RESULT_PUBLISH, value).apply()
 
+    var isAnalisisPro: Boolean
+        get() = prefs.getBoolean(ANALISIS_PRO,false)
+        set(value) = prefs.edit().putBoolean(ANALISIS_PRO, value).apply()
+
     var isInfoShow: Boolean
         get() = prefs.getBoolean(INFO_SHOW,true)
         set(value) = prefs.edit().putBoolean(INFO_SHOW, value).apply()

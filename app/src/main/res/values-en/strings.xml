@@ -145,4 +145,6 @@ For those serious, please input with Arabic letters</string>
     <string name="error">Eror %s</string>
     <string name="analisis_pro">Prediksi Profesional</string>
     <string name="ahli_hikmah">AHLI HIKMAH</string>
+    <string name="tomboloff">Off</string>
+    <string name="tombolon">On</string>
 </resources>

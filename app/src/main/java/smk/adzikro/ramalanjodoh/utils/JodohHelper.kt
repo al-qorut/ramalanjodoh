@@ -13,12 +13,6 @@ import java.util.Locale
 // 1. DATA MODELS
 // ==========================================
 
-
-fun getCurrentDateTime(): String {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-    return dateFormat.format(Date())
-}
-
 // Result Sealed Class untuk Menangani Validasi
 sealed class ValidationResult {
     object Success : ValidationResult()
@@ -32,6 +26,8 @@ sealed class ValidationResult {
 class JodohHelper {
     // List kata yang tidak boleh/tidak mungkin jadi nama manusia
     var forbiddenWords: Set<String> = emptySet()
+    var isActionPro : Boolean = false
+    var tokenCount : Int = 0
     companion object {
         // Regex untuk mendeteksi 3+ huruf sama berurutan (contoh: aaa, bbb)
         private val TRIPLE_CHAR_REGEX = Regex("(?i)(.)\\1{2,}")
@@ -130,13 +126,13 @@ class JodohHelper {
 
         // 4. Cek Kata Terlarang
         if (forbiddenWords.contains(trimmed)) {
-            return "Nama '$name' tidak boleh digunakan."
+            return "Nama '$name' tidak boleh digunakan. silahkan ubah"
         }
 
         return null // Null menandakan validasi lolos
     }
 
-    fun validateInput(pria: String, wanita: String): ValidationResult {
+    private fun validateInput(pria: String, wanita: String): ValidationResult {
         val priaError = validateSingleName(pria, "Pria")
         if (priaError != null) return ValidationResult.Error(priaError)
 
@@ -148,6 +144,9 @@ class JodohHelper {
             return ValidationResult.Error("Nama Pria dan Wanita tidak boleh sama.")
         }
 
+        if(tokenCount<10 && isActionPro){
+            return ValidationResult.Error("Analisis profesional memerlukan minimal 10 token")
+        }
         return ValidationResult.Success
     }
 
@@ -155,12 +154,12 @@ class JodohHelper {
     // LOGIKA PERHITUNGAN RAMALAN
     // ==========================================
 
-    fun isArabic(input: String): Boolean {
+    private fun isArabic(input: String): Boolean {
         val arabRegex = "[\u0600-\u06FF]".toRegex()
         return arabRegex.containsMatchIn(input)
     }
 
-    fun nameToScore(kata: String): Int {
+    private fun nameToScore(kata: String): Int {
         val skorMap = if (isArabic(kata)) SCORE_MAP_ARABIC else SCORE_MAP_LATIN
         var totalSkor = 0
         for (char in kata.uppercase()) {
@@ -169,7 +168,7 @@ class JodohHelper {
         return totalSkor
     }
 
-    fun convertLatinToArabic(inputText: String): String {
+    private fun convertLatinToArabic(inputText: String): String {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) { // Menargetkan API 29+ untuk Transliterator bawaan
             if (Build.VERSION.SDK_INT >= 29) {
                 // Digunakan untuk Android 10 (API 29) ke atas
@@ -204,12 +203,13 @@ class JodohHelper {
         }
 
         // 2. Kalkulasi Skor
-        val men = nameToScore(kata1)
-        val women = nameToScore(kata2)
+        val men = if(isActionPro) nameToScore(convertLatinToArabic(kata1)) else nameToScore(kata1)
+        val women = if(isActionPro) nameToScore(convertLatinToArabic(kata2)) else nameToScore(kata2)
+       // context.mydebug("${convertLatinToArabic(kata1)}, ${convertLatinToArabic(kata2)} laki $men we $women ")
         val ilustrasi: Int
         val desc: String
 
-        if (isArabic(kata1) && isArabic(kata2)) {
+        if (isActionPro) {
             val total = (men + women) % 7
             when (total) {
                 0 -> {
