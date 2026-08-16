@@ -63,7 +63,7 @@ public *;
 
 # Gson
 -keepclassmembers,allowobfuscation class * {
-  @com.google.gson.annotations.SerializedName <fields>;
+ # @com.google.gson.annotations.SerializedName <fields>;
 }
 -keep class * implements com.google.gson.*
 
@@ -76,9 +76,16 @@ public *;
 }
 
 
--keep class smk.adzikro.ramalanjodoh.data.models.Ramalx { *; }
--keep class smk.adzikro.ramalanjodoh.data.models.Userx { *; }
--keep class smk.adzikro.ramalanjodoh.data.models.Comment { *; }
+-keep class smk.adzikro.ramalanjodoh.data.models.** { *; }
+-keep class smk.adzikro.ramalanjodoh.ui.activities.** { *; }
+-keep class smk.adzikro.ramalanjodoh.ui.fragments.** { *; }
+-keep class smk.adzikro.ramalanjodoh.utils.** { *; }
+#-keep class smk.adzikro.ramalanjodoh.data.models.Userx { *; }
+#-keep class smk.adzikro.ramalanjodoh.data.models.Comment { *; }
+#-keep class smk.adzikro.ramalanjodoh.data.models.Ramal { *; }
+#-keep class smk.adzikro.ramalanjodoh.data.models.UserDao { *; }
+#-keep class smk.adzikro.ramalanjodoh.data.models.RamalDao { *; }
+
 -dontwarn smk.adzikro.ramalanjodoh.Hilt_MyApp
 -dontwarn smk.adzikro.ramalanjodoh.ui.activities.Hilt_BaseActivity
 -dontwarn smk.adzikro.ramalanjodoh.ui.activities.Hilt_CommentActivity
@@ -86,3 +93,9 @@ public *;
 -dontwarn smk.adzikro.ramalanjodoh.ui.activities.Hilt_SettingsActivity
 -dontwarn smk.adzikro.ramalanjodoh.ui.fragments.online.Hilt_OnlineFragment
 
+# Menjaga fungsionalitas Credential Manager agar tidak rusak saat enkripsi/obfuscation
+-if class androidx.credentials.CredentialManager
+-keep class androidx.credentials.playservices.** { *; }
+
+# Jika Anda juga menggunakan Google ID Token / Sign-In dengan Google via Credential Manager
+-keep class com.google.android.libraries.identity.googleid.** { *; }

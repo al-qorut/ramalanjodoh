@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hiltAndroid)
-    //alias(libs.plugins.org.jetbrains.kotlin.kapt)
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.ksp)
     alias(libs.plugins.parcelize)
@@ -17,8 +16,8 @@ android {
         applicationId = "smk.adzikro.ramalanjodoh"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 26
-        versionName = "4.2"
+        versionCode = 28
+        versionName = "4.2.0(beta-2)"
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -34,8 +33,8 @@ android {
             )
         }
         debug {
-            isMinifyEnabled = false
-            isShrinkResources = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -77,8 +76,8 @@ dependencies {
     implementation(libs.ibm.icu)
     //firebase
     implementation(libs.bundles.firebase)
-    implementation(libs.google.play.service.auth)
-    implementation(libs.google.play.service.location)
+  //  implementation(libs.google.play.service.auth)
+  //  implementation(libs.google.play.service.location)
    // implementation(libs.firebase.firestore.ktx)
 
    //IAP
@@ -100,7 +99,6 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     implementation(libs.bundles.lifecycle)
-
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.app.NotificationCompat.getColor
 import androidx.fragment.app.Fragment
 import com.alqorut.mystory.views.ConfirmationDialog
 import smk.adzikro.ramalanjodoh.R

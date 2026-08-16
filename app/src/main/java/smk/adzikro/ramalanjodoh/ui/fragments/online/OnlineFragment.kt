@@ -2,7 +2,6 @@ package smk.adzikro.ramalanjodoh.ui.fragments.online
 
 import android.content.Context
 import android.content.Intent
-import android.credentials.GetCredentialException
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -15,6 +14,7 @@ import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.GetCredentialResponse
+import androidx.credentials.exceptions.GetCredentialException
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -23,9 +23,9 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alqorut.mystory.views.ConfirmationDialog
-import com.google.android.datatransport.runtime.scheduling.SchedulingConfigModule_ConfigFactory.config
 import com.google.android.gms.tasks.Task
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.auth.AuthResult
@@ -68,7 +68,9 @@ class OnlineFragment : Fragment(), RamalxAdapter.OnItemClickCallback {
    // private val RC_SIGN_IN = 9001
     private var cariText: String? = ""
 
-    private lateinit var credentialManager: CredentialManager
+  //  private lateinit var credentialManager: CredentialManager
+    // Lakukan ini di level class atau onCreate()
+    private val credentialManager by lazy { CredentialManager.create(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +78,7 @@ class OnlineFragment : Fragment(), RamalxAdapter.OnItemClickCallback {
     ): View {
         _binding = FragmentOnlineBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
-        credentialManager = CredentialManager.create(requireContext())
+    //    credentialManager = CredentialManager.create(requireContext())
         auth = Firebase.auth
         loading()
         return binding.root
@@ -242,18 +244,20 @@ class OnlineFragment : Fragment(), RamalxAdapter.OnItemClickCallback {
         val digest = md.digest(bytes)
         val hashedNonce = digest.fold("") { str, it -> str + "%02x".format(it) }
 
-        val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
-            .setFilterByAuthorizedAccounts(false) // Wajib false agar muncul pilihan akun jika belum pernah login
-            .setServerClientId(getString(R.string.default_web_client_id))
-            .setAutoSelectEnabled(false) // Set false dulu untuk testing agar dialog selalu muncul
+//        val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
+//            .setFilterByAuthorizedAccounts(false) // Wajib false agar muncul pilihan akun jika belum pernah login
+//            .setServerClientId(getString(R.string.default_web_client_id))
+//            .setAutoSelectEnabled(false) // Set false dulu untuk testing agar dialog selalu muncul
+//            .setNonce(hashedNonce)
+//            .build()
+        val googleIdOption = GetSignInWithGoogleOption.Builder(getString(R.string.default_web_client_id))
             .setNonce(hashedNonce)
             .build()
-
         val request: GetCredentialRequest = GetCredentialRequest.Builder()
             .addCredentialOption(googleIdOption)
             .build()
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val result = credentialManager.getCredential(
                     request = request,
@@ -263,10 +267,10 @@ class OnlineFragment : Fragment(), RamalxAdapter.OnItemClickCallback {
             } catch (e: androidx.credentials.exceptions.NoCredentialException) {
                 // Ditangkap khusus jika tidak ada akun Google di HP/Emulator
                 Log.e(TAG, "No credentials available: ${e.message}", e)
-                toast(context!!,"Tidak ada akun Google yang ditemukan di perangkat ini. Silakan tambahkan akun terlebih dahulu.")
+                toast(requireContext(),"Tidak ada akun Google yang ditemukan di perangkat ini. Silakan tambahkan akun terlebih dahulu.")
             } catch (e: GetCredentialException) {
                 Log.e(TAG, "GetCredentialException: ${e.message}", e)
-                toast(context!!,"Gagal melakukan login: ${e.localizedMessage}")
+                toast(requireContext(),"Gagal melakukan login: ${e.localizedMessage}")
             } catch (e: GoogleIdTokenParsingException) {
                 Log.e(TAG, "GoogleIdTokenParsingException: ${e.message}", e)
             }
