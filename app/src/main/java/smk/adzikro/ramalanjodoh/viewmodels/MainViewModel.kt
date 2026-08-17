@@ -179,4 +179,9 @@ constructor(
         }
 
     }
+    fun migrasi(){
+        viewModelScope.launch {
+            remote.upgrade()
+        }
+    }
 }

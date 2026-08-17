@@ -35,6 +35,7 @@ import kotlinx.coroutines.launch
 import smk.adzikro.ramalanjodoh.R
 import smk.adzikro.ramalanjodoh.utils.BillingManager
 import smk.adzikro.ramalanjodoh.utils.GoogleMobileAdsConsentManager
+import smk.adzikro.ramalanjodoh.utils.Progress
 import smk.adzikro.ramalanjodoh.utils.toast
 import smk.adzikro.ramalanjodoh.viewmodels.MainViewModel
 import java.util.concurrent.atomic.AtomicBoolean
@@ -352,6 +353,23 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         adView?.resume()
+    }
+    private var progres: Progress? = null
+    fun onProgress(message: String, state: Boolean) {
+        runOnUiThread {
+            if (state) {
+                if (progres == null) {
+                    progres = Progress(this, message, cancelable = true)
+                } else {
+                    progres?.setInfo(message)
+                }
+                progres?.show()
+            } else {
+                // Jika state false, tutup dialog dan kosongkan kembali variabelnya
+                progres?.dismiss()
+                progres = null
+            }
+        }
     }
 
     companion object {

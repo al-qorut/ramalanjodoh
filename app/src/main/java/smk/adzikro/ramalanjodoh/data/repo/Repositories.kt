@@ -35,4 +35,6 @@ interface Repositories {
     fun addBeliToken(count : Long, onSuccess: (Long) -> Unit, onFailure: (Exception) -> Unit)
     suspend fun useToken()
 
+    suspend fun upgrade()
+
 }

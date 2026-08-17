@@ -18,9 +18,12 @@ import smk.adzikro.ramalanjodoh.R
 import smk.adzikro.ramalanjodoh.data.models.Ramal
 import smk.adzikro.ramalanjodoh.databinding.FragmentHomeBinding
 import smk.adzikro.ramalanjodoh.ui.activities.MainActivity
+import smk.adzikro.ramalanjodoh.utils.IS_GOOD
 import smk.adzikro.ramalanjodoh.utils.JodohHelper
 import smk.adzikro.ramalanjodoh.utils.config
 import smk.adzikro.ramalanjodoh.utils.confirmDialog
+import smk.adzikro.ramalanjodoh.utils.imgBad
+import smk.adzikro.ramalanjodoh.utils.imgGood
 import smk.adzikro.ramalanjodoh.utils.mydebug
 
 class HomeFragment : Fragment() {
@@ -74,6 +77,13 @@ class HomeFragment : Fragment() {
                     ) {}
                 }
             }
+            analisisPro.setOnClickListener {
+                ConfirmationDialog(
+                    requireActivity(),
+                    message = getString(R.string.about_app),
+                    negative = 0
+                ) {}
+            }
             proses.setOnClickListener {
                 context?.mydebug("tah di klik $nal, dan $naw")
                 if (hitung) {
@@ -92,6 +102,7 @@ class HomeFragment : Fragment() {
                         ) {}
                         return@setOnClickListener
                     }
+                    requireContext().config.isHitungPro = requireContext().config.isAnalisisPro && requireContext().config.isResulPublish
                     val jodohHelper = JodohHelper()
                     jodohHelper.forbiddenWords = forbiddenWords
                     jodohHelper.isActionPro = requireContext().config.isAnalisisPro
@@ -114,6 +125,7 @@ class HomeFragment : Fragment() {
             tombolState(!requireContext().config.isAnalisisPro)
             buttonOff.setOnClickListener {
                 tombolState(requireContext().config.isAnalisisPro)
+              //  (context as MainActivity).viewModel.migrasi()
             }
             jalu.requestFocus()
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -259,8 +271,14 @@ class HomeFragment : Fragment() {
     fun tampil() {
         binding.apply {
             viewHasil.visibility = View.VISIBLE
-            hasilText.text = ha?.desc
-            imageView2.setImageResource(ha!!.ilustratsi)
+            if(ha!=null) {
+                hasilText.text = ha!!.desc
+                val img =
+                    if (ha!!.result == IS_GOOD) imgGood[ha!!.ilustratsi] else imgBad[ha!!.ilustratsi]
+                imageView2.setImageResource(img)
+            }else{
+                imageView2.setImageResource(imgGood[imgGood.indices.random()])
+            }
             input.visibility = View.GONE
             analisisPro.visibility = View.GONE
         }

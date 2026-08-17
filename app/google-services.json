@@ -60,6 +60,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1038751793192-5g1fl7lmk4u6840c7stigdgra4hoo2b2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "smk.adzikro.ramalanjodoh",
+            "certificate_hash": "0f5d6b97fe3dbb2da1f39f16cd2e80d5e0b63c13"
+          }
+        },
+        {
           "client_id": "1038751793192-5gih0t9smkd6cau4vibhjc0e37ga20of.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -94,7 +102,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-3624492980147085~8894706455"
     }
   ],
   "configuration_version": "1"

@@ -92,4 +92,8 @@ class RepoImpl @Inject constructor (
     override suspend fun useToken() {
         remote.useToken()
     }
+
+    override suspend fun upgrade() {
+        remote.migrasi()
+    }
 }

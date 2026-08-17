@@ -18,6 +18,11 @@ import com.bumptech.glide.request.RequestOptions
 import smk.adzikro.ramalanjodoh.R
 import smk.adzikro.ramalanjodoh.data.models.Ramal
 import smk.adzikro.ramalanjodoh.databinding.ItemRamalBinding
+import smk.adzikro.ramalanjodoh.utils.IS_GOOD
+import smk.adzikro.ramalanjodoh.utils.OFFLINE_NONFAVORITE
+import smk.adzikro.ramalanjodoh.utils.ONLINE_NONFAVORITE
+import smk.adzikro.ramalanjodoh.utils.imgBad
+import smk.adzikro.ramalanjodoh.utils.imgGood
 
 class RamalAdapter(
     private val onItemClickCallback: OnItemClickCallback
@@ -25,12 +30,12 @@ class RamalAdapter(
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Ramal>() {
             override fun areItemsTheSame(oldItem: Ramal, newItem: Ramal): Boolean {
-                return oldItem.status == newItem.status
+                return  oldItem.id == newItem.id
             }
 
             @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: Ramal, newItem: Ramal): Boolean {
-                return oldItem == newItem
+                return oldItem.status == newItem.status
             }
 
         }
@@ -43,16 +48,24 @@ class RamalAdapter(
                     val options = RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(CenterCrop(), RoundedCorners(10))
+                    val img = when(item.ilustratsi){
+                        !in 0..49 ->{
+                            imgGood[imgGood.indices.random()]
+                        }
+                        in 0..59 ->
+                            if(item.result== IS_GOOD) imgGood[item.ilustratsi] else imgBad[item.ilustratsi]
+                        else -> imgBad[imgBad.indices.random()]
+                    }
 
                     Glide.with(itemView.context)
-                        .load(item.ilustratsi)
+                        .load(img)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .apply(options)
                         .into(itemPhoto)
                     itemDescription.text = item.desc
                     itemDate.text = item.date
                     tvItemName.text = item.pria + " \n" + item.wanita
-                    if (item.status == 0 || item.status == 2) {
+                    if (item.status == ONLINE_NONFAVORITE || item.status == OFFLINE_NONFAVORITE) {
                         itemFavorite.setColorFilter(ContextCompat.getColor(v.root.context, R.color.linkColor), PorterDuff.Mode.SRC_IN)
                         itemFavorite.setImageResource(R.drawable.ic_favorite_border_white_24dp)
                     } else {
@@ -87,7 +100,7 @@ class RamalAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position) as Ramal)
-        holder.setIsRecyclable(true)
+      //  holder.setIsRecyclable(true)
     }
     interface OnItemClickCallback {
         fun onItemDeleteClicked(data: Ramal)

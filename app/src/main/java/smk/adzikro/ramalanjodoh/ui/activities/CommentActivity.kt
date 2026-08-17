@@ -18,7 +18,10 @@ import smk.adzikro.ramalanjodoh.data.models.Comment
 import smk.adzikro.ramalanjodoh.data.models.Ramalx
 import smk.adzikro.ramalanjodoh.databinding.ActivityCommentBinding
 import smk.adzikro.ramalanjodoh.ui.adapter.CommentAdapter
+import smk.adzikro.ramalanjodoh.utils.IS_GOOD
 import smk.adzikro.ramalanjodoh.utils.dateToString
+import smk.adzikro.ramalanjodoh.utils.imgBad
+import smk.adzikro.ramalanjodoh.utils.imgGood
 import smk.adzikro.ramalanjodoh.viewmodels.CommentViewModel
 
 @AndroidEntryPoint
@@ -57,9 +60,15 @@ class CommentActivity: BaseActivity(){
             val options = RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .transform(CenterCrop(), RoundedCorners(10))
+            val maxIndex = if (item.result == IS_GOOD) imgGood.size else imgBad.size
 
+            val img = if (item.img in 0 until maxIndex) {
+                if (item.result == IS_GOOD) imgGood[item.img] else imgBad[item.img]
+            } else {
+                imgGood[imgGood.indices.random()]
+            }
             Glide.with(this@CommentActivity)
-                .load(item.img)
+                .load(img)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .apply(options)
                 .into(itemPhoto)

@@ -42,7 +42,8 @@ fun toRamalx(ramal : Ramal) : Ramalx {
         desc = ramal.desc,
         date = toTimestamp(ramal.date),
         img = ramal.ilustratsi,
-        favorite = listOf()
+        favorite = listOf(),
+        result = ramal.result
     )
 }
 
@@ -51,6 +52,7 @@ fun toRamal(ramalx: Ramalx) : Ramal {
         pria = ramalx.pria,
         wanita = ramalx.wanita,
         desc = ramalx.desc,
-        ilustratsi = ramalx.img
+        ilustratsi = ramalx.img,
+        result = ramalx.result
     )
 }

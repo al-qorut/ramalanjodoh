@@ -1,7 +1,6 @@
 package smk.adzikro.ramalanjodoh.ui.adapter
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.PorterDuff
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,8 +19,11 @@ import com.bumptech.glide.request.RequestOptions
 import smk.adzikro.ramalanjodoh.R
 import smk.adzikro.ramalanjodoh.data.models.Ramalx
 import smk.adzikro.ramalanjodoh.databinding.ItemRamalxBinding
+import smk.adzikro.ramalanjodoh.utils.IS_GOOD
 import smk.adzikro.ramalanjodoh.utils.config
 import smk.adzikro.ramalanjodoh.utils.dateToString
+import smk.adzikro.ramalanjodoh.utils.imgBad
+import smk.adzikro.ramalanjodoh.utils.imgGood
 
 class RamalxAdapter(
     private val onItemClickCallback: OnItemClickCallback
@@ -47,9 +49,15 @@ class RamalxAdapter(
                     val options = RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(CenterCrop(), RoundedCorners(10))
-
+                    // 💡 AMANKAN INDEKS DI SINI
+                    val maxIndex = if (item.result == IS_GOOD) imgGood.size else imgBad.size
+                    val img = if (item.img in 0 until maxIndex) {
+                        if (item.result == IS_GOOD) imgGood[item.img] else imgBad[item.img]
+                    } else {
+                        imgGood[imgGood.indices.random()]
+                    }
                     Glide.with(itemView.context)
-                        .load(item.img)
+                        .load(img)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .apply(options)
                         .into(itemPhoto)

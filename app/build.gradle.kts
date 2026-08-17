@@ -16,13 +16,21 @@ android {
         applicationId = "smk.adzikro.ramalanjodoh"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 28
-        versionName = "4.2.0(beta-2)"
+        versionCode = 33
+        versionName = "4.2.3"
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
     }
-
+    signingConfigs {
+        create("release") {
+            // Kita pinjam keystore debug bawaan Android Studio agar Anda tidak perlu membuat file JKS baru saat testing
+            storeFile = file(System.getProperty("user.home") + "/.android/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -31,10 +39,14 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
+
+            // 3. AKTIFKAN DEBUGGABLE KHUSUS UNTUK TES LOKAL (Wajib agar bisa di-run langsung)
+            isDebuggable = false
         }
         debug {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -74,8 +86,11 @@ dependencies {
     implementation(libs.lotte)
     implementation(libs.guava)
     implementation(libs.ibm.icu)
-    //firebase
+
+    // Firebase & Google Services (Menggunakan BoM)
+    implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
+    implementation(libs.firebase.firestore.ui)
   //  implementation(libs.google.play.service.auth)
   //  implementation(libs.google.play.service.location)
    // implementation(libs.firebase.firestore.ktx)

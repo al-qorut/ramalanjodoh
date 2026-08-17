@@ -1,18 +1,24 @@
 package smk.adzikro.ramalanjodoh.data.remote
 
 import android.content.Context
+import android.util.Log
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Filter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
 import smk.adzikro.ramalanjodoh.data.models.Comment
 import smk.adzikro.ramalanjodoh.data.models.Ramal
 import smk.adzikro.ramalanjodoh.data.models.Userx
+import smk.adzikro.ramalanjodoh.utils.IS_GOOD
+import smk.adzikro.ramalanjodoh.utils.JodohHelper
 import smk.adzikro.ramalanjodoh.utils.PAGE_SIZE
 import smk.adzikro.ramalanjodoh.utils.config
 import smk.adzikro.ramalanjodoh.utils.toRamalx
+import smk.adzikro.ramalanjodoh.utils.toast
 import javax.inject.Inject
+import kotlin.coroutines.resume
 
 class FireStore @Inject constructor(
     private val context: Context,
@@ -143,8 +149,11 @@ class FireStore @Inject constructor(
     suspend fun useToken(){
         try {
             val doc = db.collection("users").document(context.config.userUid!!)
-            doc.update("token", FieldValue.increment(-1)).await()
+            val ongkos : Long = if(context.config.isAnalisisPro && context.config.isHitungPro) -10L else -1L
+            context.config.isHitungPro = false
+            doc.update("token", FieldValue.increment(ongkos)).await()
         }catch (e :Exception){
+            context.config.isHitungPro = false
             e.printStackTrace()
         }
     }
@@ -192,6 +201,78 @@ class FireStore @Inject constructor(
             }
         } catch (e: Exception) {
             0
+        }
+    }
+    private suspend fun kawinkeunSynchronous(laki: String, wanita: String): Pair<Int, Int> {
+        return suspendCancellableCoroutine { continuation ->
+            val jodohHelper = JodohHelper()
+            jodohHelper.genResult(
+                context = context,
+                kata1 = laki,
+                kata2 = wanita,
+                onSuccess = {
+                    continuation.resume(Pair(it.ilustratsi, it.result))
+                },
+                onError = {
+                    continuation.resume(Pair(0, IS_GOOD))
+                }
+            )
+        }
+    }
+
+    // 2. Fungsi Migrasi Utama (Tambahkan modifier suspend)
+    suspend fun migrasiIdGambarKeIndeksArray() {
+        val db = FirebaseFirestore.getInstance()
+        val koleksiRamal = db.collection("ramalan")
+
+        try {
+            // Menggunakan .await() dari kotlinx-coroutines-play-services
+            val querySnapshot = koleksiRamal.get().await()
+
+            if (querySnapshot.isEmpty) {
+                Log.d("MIGRASI", "Tidak ada data untuk dimigrasi.")
+                return
+            }
+
+            var batch = db.batch()
+            var count = 0
+            val totalData = querySnapshot.size()
+
+            for (document in querySnapshot.documents) {
+                val currentImgValue = document.getLong("img")?.toInt() ?: 0
+
+                // ⚠️ KRUSIAL: Hanya migrasi jika data lama bernilai besar (bukan indeks 0..29)
+                if (currentImgValue !in 0..60) {
+                    val pria = document.getString("pria") ?: ""
+                    val wanita = document.getString("wanita") ?: ""
+
+                    // Menunggu hasil perhitungan dari JodohHelper selesai
+                    val (imgIndex, hasil) = kawinkeunSynchronous(pria, wanita)
+
+                    batch.update(document.reference, "img", imgIndex)
+                    batch.update(document.reference, "result", hasil)
+                    count++
+
+                    // Batasan Firestore: 1 batch maksimal berisi 500 operasi write
+                    if (count % 500 == 0) {
+                        batch.commit().await()
+                        batch = db.batch() // Buat batch baru untuk data selanjutnya
+                    }
+                }
+            }
+
+            // Komit sisa data di batch terakhir
+            if (count % 500 != 0) {
+                batch.commit().await()
+                toast(context, "Sukses mengubah $count dari $totalData data lama ke sistem indeks.")
+            } else if (count > 0) {
+                toast(context, "Sukses mengubah $count data lama ke sistem indeks.")
+            } else {
+                toast(context, "Semua data sudah menggunakan format indeks array. Tidak ada perubahan.")
+            }
+
+        } catch (exception: Exception) {
+            toast(context, "Gagal melakukan migrasi: ${exception.message}")
         }
     }
 }

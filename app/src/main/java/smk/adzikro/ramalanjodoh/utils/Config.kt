@@ -29,6 +29,10 @@ open class Config @Inject constructor(val context: Context) {
         get() = prefs.getBoolean(ANALISIS_PRO,false)
         set(value) = prefs.edit().putBoolean(ANALISIS_PRO, value).apply()
 
+    var isHitungPro: Boolean
+        get() = prefs.getBoolean(HITUNG_PRO,false)
+        set(value) = prefs.edit().putBoolean(HITUNG_PRO, value).apply()
+
     var isInfoShow: Boolean
         get() = prefs.getBoolean(INFO_SHOW,true)
         set(value) = prefs.edit().putBoolean(INFO_SHOW, value).apply()

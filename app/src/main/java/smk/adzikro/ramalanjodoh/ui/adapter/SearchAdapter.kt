@@ -17,8 +17,11 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import smk.adzikro.ramalanjodoh.R
 import smk.adzikro.ramalanjodoh.data.models.Ramalx
 import smk.adzikro.ramalanjodoh.databinding.ItemRamalxBinding
+import smk.adzikro.ramalanjodoh.utils.IS_GOOD
 import smk.adzikro.ramalanjodoh.utils.config
 import smk.adzikro.ramalanjodoh.utils.dateToString
+import smk.adzikro.ramalanjodoh.utils.imgBad
+import smk.adzikro.ramalanjodoh.utils.imgGood
 
 class SearchAdapter(
     options: FirestoreRecyclerOptions<Ramalx>,
@@ -34,9 +37,14 @@ class SearchAdapter(
                     val options = RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(CenterCrop(), RoundedCorners(10))
-
+                    val maxIndex = if (item.result == IS_GOOD) imgGood.size else imgBad.size
+                    val img = if (item.img in 0 until maxIndex) {
+                        if (item.result == IS_GOOD) imgGood[item.img] else imgBad[item.img]
+                    } else {
+                        imgGood[imgGood.indices.random()]
+                    }
                     Glide.with(itemView.context)
-                        .load(item.img)
+                        .load(img)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .apply(options)
                         .into(itemPhoto)

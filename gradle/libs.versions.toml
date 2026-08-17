@@ -40,9 +40,10 @@ playServicesAuth = "21.3.0"
 firebaseAuth = "23.1.0"
 firebaseDatabase = "21.0.0"
 firebaseFirestoreKtx = "25.1.1"
-firestoreUi = "8.0.0"
+firestoreUi = "9.1.1"
 billingKtx = "8.0.0"
 googleAppGoogleServices = "2.1.0"
+playIntegrity = "1.6.0"
 
 credentials = "1.6.0"
 googleid = "1.1.1"
@@ -90,12 +91,18 @@ glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 navigation-fragmen = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidx-navigation" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidx-navigation" }
 lotte = { group = "com.airbnb.android", name = "lottie", version.ref = "lotte" }
-firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database"}
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth"}
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx"}
+firebase-firestore-ui = {group = "com.firebaseui", name = "firebase-ui-firestore", version.ref = "firestoreUi"}
+firebase-appcheck-debug = { group = "com.google.firebase", name = "firebase-appcheck-debug" }
+firebase-appcheck-playintegrity = { group = "com.google.firebase", name = "firebase-appcheck-playintegrity" }
+
 google-play-service-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
 google-play-service-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesAuth" }
-firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
-firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
-firebase-firestore-ui = {group = "com.firebaseui", name = "firebase-ui-firestore", version.ref = "firestoreUi" }
+
 #app-purchase
 billing-ktx = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billingKtx" }
 #app-update
@@ -128,7 +135,9 @@ firebase = [
     "firebase-auth",
     "firebase-database",
     "firebase-firestore-ktx",
-    "firebase-firestore-ui"
+   # "firebase-firestore-ui",
+    "firebase-appcheck-debug",
+    "firebase-appcheck-playintegrity"
 ]
 lifecycle = [
     "androidx-lifecycle-compose",

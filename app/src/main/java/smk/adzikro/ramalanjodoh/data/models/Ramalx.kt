@@ -5,6 +5,7 @@ import androidx.annotation.Keep
 import com.google.firebase.firestore.ServerTimestamp
 import java.util.Date
 import kotlinx.parcelize.Parcelize
+import smk.adzikro.ramalanjodoh.utils.IS_GOOD
 
 @Keep
 @Parcelize
@@ -19,7 +20,7 @@ data class Ramalx(
     var date : Date? = null,
     var favorite : List<String> = listOf(),
     val img : Int = 0,
-    var message : Int = 0
-) : Parcelable {
-    constructor() : this("", "", null, "", "", "", null, listOf(), 0, 0)
-}
+    var message : Int = 0,
+    var result : Int = IS_GOOD
+) : Parcelable
+

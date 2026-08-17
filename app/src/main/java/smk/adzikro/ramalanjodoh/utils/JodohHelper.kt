@@ -4,9 +4,6 @@ import android.content.Context
 import android.os.Build
 import smk.adzikro.ramalanjodoh.R
 import smk.adzikro.ramalanjodoh.data.models.Ramal
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
 // ==========================================
@@ -51,44 +48,6 @@ class JodohHelper {
             "خ" to 600, "ذ" to 700, "ض" to 800, "ظ" to 900, "غ" to 1000
         )
 
-        val imgGood = arrayOf(
-            R.drawable.baik1, R.drawable.baik2, R.drawable.baik3, R.drawable.baik4,
-            R.drawable.baik5, R.drawable.baik6, R.drawable.baik7, R.drawable.baik8,
-            R.drawable.baik9, R.drawable.baik10, R.drawable.baik11, R.drawable.baik12,
-            R.drawable.baik13, R.drawable.baik14, R.drawable.baik15, R.drawable.baik16,
-            R.drawable.baik17, R.drawable.baik18, R.drawable.baik19, R.drawable.baik20,
-            R.drawable.baik21, R.drawable.baik22, R.drawable.baik23, R.drawable.baik24,
-            R.drawable.baik25, R.drawable.baik26, R.drawable.baik27, R.drawable.baik28,
-            R.drawable.baik29, R.drawable.baik30
-        )
-
-        val imgSuccess = arrayOf(
-            R.drawable.sukses1, R.drawable.sukses2, R.drawable.sukses3, R.drawable.sukses4,
-            R.drawable.sukses5, R.drawable.sukses6, R.drawable.sukses7, R.drawable.sukses8,
-            R.drawable.sukses9, R.drawable.sukses10, R.drawable.sukses11, R.drawable.sukses12,
-            R.drawable.sukses13, R.drawable.sukses14, R.drawable.sukses15, R.drawable.sukses16,
-            R.drawable.sukses17, R.drawable.sukses18, R.drawable.sukses19, R.drawable.sukses20,
-            R.drawable.sukses21, R.drawable.sukses22, R.drawable.sukses23, R.drawable.sukses24,
-            R.drawable.sukses25, R.drawable.sukses26, R.drawable.sukses27, R.drawable.sukses28,
-            R.drawable.sukses29, R.drawable.sukses29
-        )
-
-        val imgBad = arrayOf(
-            R.drawable.buruk1, R.drawable.buruk2, R.drawable.buruk3, R.drawable.buruk4,
-            R.drawable.buruk5, R.drawable.buruk6, R.drawable.buruk7, R.drawable.buruk8,
-            R.drawable.buruk9, R.drawable.buruk10, R.drawable.buruk11, R.drawable.buruk12,
-            R.drawable.buruk13, R.drawable.buruk14, R.drawable.buruk15, R.drawable.buruk16,
-            R.drawable.buruk17, R.drawable.buruk18, R.drawable.buruk19, R.drawable.buruk20,
-            R.drawable.buruk21, R.drawable.buruk22, R.drawable.buruk23, R.drawable.buruk24,
-            R.drawable.buruk25, R.drawable.buruk26, R.drawable.buruk27, R.drawable.buruk28,
-            R.drawable.buruk29, R.drawable.buruk30, R.drawable.buruk31, R.drawable.buruk32,
-            R.drawable.buruk33, R.drawable.buruk34, R.drawable.buruk35, R.drawable.buruk36,
-            R.drawable.buruk37, R.drawable.buruk38, R.drawable.buruk39, R.drawable.buruk40,
-            R.drawable.buruk41, R.drawable.buruk42, R.drawable.buruk43, R.drawable.buruk44,
-            R.drawable.buruk45, R.drawable.buruk46, R.drawable.buruk47, R.drawable.buruk48,
-            R.drawable.buruk49, R.drawable.buruk50
-        )
-
         val kataBaik = arrayOf(
             R.string.baik1, R.string.baik2, R.string.baik3, R.string.baik4,
             R.string.baik5, R.string.baik6, R.string.baik7, R.string.baik8,
@@ -114,23 +73,48 @@ class JodohHelper {
             return "Nama $label tidak boleh kosong."
         }
 
-        // 2. Cek Panjang Minimal (Min 3 karakter)
+        // 2. Cek Panjang Karakter (Min 3, Max 60)
         if (trimmed.length < 3) {
             return "Nama $label minimal terdiri dari 3 huruf."
         }
-
-        // 3. Cek 3 Huruf Berurutan Sama (contoh: aaa, zzz)
-        if (TRIPLE_CHAR_REGEX.containsMatchIn(trimmed)) {
-            return "Nama $label tidak valid (terdapat karakter berulang acak)."
+        if (trimmed.length > 60) {
+            return "Nama $label maksimal terdiri dari 60 karakter."
         }
 
-        // 4. Cek Kata Terlarang
-        if (forbiddenWords.contains(trimmed)) {
-            return "Nama '$name' tidak boleh digunakan. silahkan ubah"
+        // 3. Hanya Izinkan Huruf dan Spasi (Blokir Angka & Karakter Spesial)
+        // Regex ini menolak semua angka (0-9) dan simbol seperti @, #, $, dll.
+        val alphabetAndSpaceRegex = "^[a-zA-Z\\s]+$".toRegex()
+        if (!trimmed.matches(alphabetAndSpaceRegex)) {
+            return "Nama $label hanya boleh berisi huruf dan spasi."
         }
 
-        return null // Null menandakan validasi lolos
+        // 4. Cek Huruf Mati (Konsonan) Berurutan Terlalu Banyak (Contoh: "bcdfgh", "qwerty")
+        // Nama manusia normal jarang memiliki lebih dari 3 atau 4 huruf konsonan berurutan tanpa vokal.
+        val excessiveConsonantsRegex = "(?i)[bcdfghjklmnpqrstvwxyz]{4,}".toRegex()
+        if (excessiveConsonantsRegex.containsMatchIn(trimmed)) {
+            return "Nama $label tidak valid (kombinasi huruf tidak wajar)."
+        }
+
+        // 5. Cek Huruf Vokal Berurutan Terlalu Banyak (Contoh: "aaaaaa")
+        val excessiveVowelsRegex = "(?i)[aeiou]{4,}".toRegex()
+        if (excessiveVowelsRegex.containsMatchIn(trimmed)) {
+            return "Nama $label tidak valid (huruf vokal berulang)."
+        }
+
+        // 6. Cek 3 Huruf Berurutan Sama (contoh: aaa, zzz)
+        val tripleCharRegex = "([a-zA-Z])\\1\\1".toRegex()
+        if (tripleCharRegex.containsMatchIn(trimmed)) {
+            return "Nama $label tidak valid (terdapat karakter berulang)."
+        }
+
+        // 7. Cek Kata Terlarang (Gunakan lowercase agar pencarian akurat)
+        if (forbiddenWords.contains(trimmed.lowercase())) {
+            return "Nama '$name' tidak boleh digunakan. Silahkan ubah."
+        }
+
+        return null // Validasi lolos
     }
+
 
     private fun validateInput(pria: String, wanita: String): ValidationResult {
         val priaError = validateSingleName(pria, "Pria")
@@ -205,39 +189,45 @@ class JodohHelper {
         // 2. Kalkulasi Skor
         val men = if(isActionPro) nameToScore(convertLatinToArabic(kata1)) else nameToScore(kata1)
         val women = if(isActionPro) nameToScore(convertLatinToArabic(kata2)) else nameToScore(kata2)
-       // context.mydebug("${convertLatinToArabic(kata1)}, ${convertLatinToArabic(kata2)} laki $men we $women ")
         val ilustrasi: Int
         val desc: String
-
+        val result : Int
         if (isActionPro) {
             val total = (men + women) % 7
             when (total) {
                 0 -> {
-                    ilustrasi = imgGood.random()
+                    result = IS_GOOD
+                    ilustrasi = imgGood.indices.random()
                     desc = context.getString(R.string.ar0, kata1, kata2)
                 }
                 1 -> {
-                    ilustrasi = imgGood.random()
+                    result = IS_GOOD
+                    ilustrasi = imgGood.indices.random()
                     desc = context.getString(R.string.ar1, kata1, kata2)
                 }
                 2 -> {
-                    ilustrasi = imgGood.random()
+                    result = IS_GOOD
+                    ilustrasi = imgGood.indices.random()
                     desc = context.getString(R.string.ar2, kata1, kata2)
                 }
                 3 -> {
-                    ilustrasi = imgGood.random()
+                    result = IS_GOOD
+                    ilustrasi = imgGood.indices.random()
                     desc = context.getString(R.string.ar3, kata1, kata2)
                 }
                 4 -> {
-                    ilustrasi = imgBad.random()
+                    result = IS_BAD
+                    ilustrasi = imgGood.indices.random()
                     desc = context.getString(R.string.ar4, kata1, kata2)
                 }
                 5 -> {
-                    ilustrasi = imgBad.random()
+                    result = IS_BAD
+                    ilustrasi = imgBad.indices.random()
                     desc = context.getString(R.string.ar5, kata1, kata2)
                 }
                 else -> { // 6
-                    ilustrasi = imgBad.random()
+                    result = IS_BAD
+                    ilustrasi = imgBad.indices.random()
                     desc = context.getString(R.string.ar6, kata1, kata2)
                 }
             }
@@ -247,15 +237,18 @@ class JodohHelper {
 
             when (total) {
                 0 -> {
-                    ilustrasi = imgGood.random()
+                    result = IS_GOOD
+                    ilustrasi = imgGood.indices.random()
                     desc = context.getString(kataBaik.random(), kata1, kata2)
                 }
                 1 -> {
-                    ilustrasi = imgSuccess.random()
+                    result = IS_GOOD
+                    ilustrasi = imgGood.indices.random()
                     desc = context.getString(kataBaik.random(), kata1, kata2)
                 }
                 else -> { // 2
-                    ilustrasi = imgBad.random()
+                    result = IS_BAD
+                    ilustrasi = imgBad.indices.random()
                     desc = context.getString(kataBad.random(), kata1, kata2, kata3)
                 }
             }
@@ -266,7 +259,8 @@ class JodohHelper {
             pria = kata1.trim(),
             wanita = kata2.trim(),
             desc = desc,
-            ilustratsi = ilustrasi
+            ilustratsi = ilustrasi,
+            result = result
         )
         onSuccess(hasil)
     }
