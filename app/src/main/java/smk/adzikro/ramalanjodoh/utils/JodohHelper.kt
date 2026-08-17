@@ -83,7 +83,12 @@ class JodohHelper {
 
         // 3. Hanya Izinkan Huruf dan Spasi (Blokir Angka & Karakter Spesial)
         // Regex ini menolak semua angka (0-9) dan simbol seperti @, #, $, dll.
-        val alphabetAndSpaceRegex = "^[a-zA-Z\\s]+$".toRegex()
+        //val alphabetAndSpaceRegex = "^[a-zA-Z\\s]+$".toRegex()
+        // if (!trimmed.matches(alphabetAndSpaceRegex)) {
+        //    return "Nama $label hanya boleh berisi huruf dan spasi."
+        //}
+        val alphabetAndSpaceRegex = "^[a-zA-Z\\u0621-\\u064A\\s]+$".toRegex()
+
         if (!trimmed.matches(alphabetAndSpaceRegex)) {
             return "Nama $label hanya boleh berisi huruf dan spasi."
         }
@@ -129,7 +134,7 @@ class JodohHelper {
         }
 
         if(tokenCount<10 && isActionPro){
-            return ValidationResult.Error("Analisis profesional memerlukan minimal 10 token")
+            return ValidationResult.Error("Analisis profesional memerlukan minimal 10 token, Kalau belum login silahkan login cek kepemilikan token anda")
         }
         return ValidationResult.Success
     }
@@ -185,50 +190,68 @@ class JodohHelper {
             }
             is ValidationResult.Success -> { /* Lanjut ke proses ramal */ }
         }
-
+        val arab1 = if(isArabic(kata1)) kata1 else convertLatinToArabic(kata1)
+        val arab2 = if(isArabic(kata2)) kata2 else convertLatinToArabic(kata2)
         // 2. Kalkulasi Skor
-        val men = if(isActionPro) nameToScore(convertLatinToArabic(kata1)) else nameToScore(kata1)
-        val women = if(isActionPro) nameToScore(convertLatinToArabic(kata2)) else nameToScore(kata2)
+        val men = if(isActionPro) nameToScore(arab1) else nameToScore(kata1)
+        val women = if(isActionPro) nameToScore(arab2) else nameToScore(kata2)
         val ilustrasi: Int
         val desc: String
         val result : Int
         if (isActionPro) {
-            val total = (men + women) % 7
+            val nama1 = "$kata1 [$arab1]"
+            val nama2 = "$kata2 [$arab2]"
+            val total = (men + women + 7) % 9
             when (total) {
                 0 -> {
-                    result = IS_GOOD
-                    ilustrasi = imgGood.indices.random()
-                    desc = context.getString(R.string.ar0, kata1, kata2)
+                    result = IS_BAD
+                    ilustrasi = imgBad.indices.random()
+                    desc = context.getString(R.string.hasil0, nama1, nama2)
                 }
                 1 -> {
-                    result = IS_GOOD
-                    ilustrasi = imgGood.indices.random()
-                    desc = context.getString(R.string.ar1, kata1, kata2)
+                    result = IS_BAD
+                    ilustrasi = imgBad.indices.random()
+                    desc = context.getString(R.string.hasil1, nama1, nama2)
                 }
                 2 -> {
                     result = IS_GOOD
                     ilustrasi = imgGood.indices.random()
-                    desc = context.getString(R.string.ar2, kata1, kata2)
+                    desc = context.getString(R.string.hasil2, nama1, nama2)
                 }
                 3 -> {
-                    result = IS_GOOD
-                    ilustrasi = imgGood.indices.random()
-                    desc = context.getString(R.string.ar3, kata1, kata2)
+                    result = IS_BAD
+                    ilustrasi = imgBad.indices.random()
+                    desc = context.getString(R.string.hasil3, nama1, nama2)
                 }
                 4 -> {
                     result = IS_BAD
-                    ilustrasi = imgGood.indices.random()
-                    desc = context.getString(R.string.ar4, kata1, kata2)
+                    ilustrasi = imgBad.indices.random()
+                    desc = context.getString(R.string.hasil4, nama1, nama2)
                 }
                 5 -> {
-                    result = IS_BAD
-                    ilustrasi = imgBad.indices.random()
-                    desc = context.getString(R.string.ar5, kata1, kata2)
+                    result = IS_GOOD
+                    ilustrasi = imgGood.indices.random()
+                    desc = context.getString(R.string.hasil5, nama1, nama2)
                 }
-                else -> { // 6
+                6 -> {
                     result = IS_BAD
                     ilustrasi = imgBad.indices.random()
-                    desc = context.getString(R.string.ar6, kata1, kata2)
+                    desc = context.getString(R.string.hasil6, nama1, nama2)
+                }
+                7 -> {
+                    result = IS_GOOD
+                    ilustrasi = imgGood.indices.random()
+                    desc = context.getString(R.string.hasil7, nama1, nama2)
+                }
+                8 -> {
+                    result = IS_BAD
+                    ilustrasi = imgBad.indices.random()
+                    desc = context.getString(R.string.hasil8, nama1, nama2)
+                }
+                else -> { // 9
+                    result = IS_BAD
+                    ilustrasi = imgBad.indices.random()
+                    desc = context.getString(R.string.hasil0, nama1, nama2)
                 }
             }
         } else {

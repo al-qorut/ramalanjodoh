@@ -16,8 +16,8 @@ android {
         applicationId = "smk.adzikro.ramalanjodoh"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 33
-        versionName = "4.2.3"
+        versionCode = 34
+        versionName = "4.2.0"
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -85,6 +85,7 @@ dependencies {
     implementation(libs.bundles.navigation)
     implementation(libs.lotte)
     implementation(libs.guava)
+    implementation(libs.androidx.palette)
     implementation(libs.ibm.icu)
 
     // Firebase & Google Services (Menggunakan BoM)

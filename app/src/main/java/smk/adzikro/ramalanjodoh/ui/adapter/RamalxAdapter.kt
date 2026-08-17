@@ -1,21 +1,27 @@
 package smk.adzikro.ramalanjodoh.ui.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import smk.adzikro.ramalanjodoh.R
 import smk.adzikro.ramalanjodoh.data.models.Ramalx
 import smk.adzikro.ramalanjodoh.databinding.ItemRamalxBinding
@@ -46,6 +52,12 @@ class RamalxAdapter(
         fun bind(item : Ramalx) {
             item.let {
                 v.apply {
+                    itemPhoto.setBackgroundColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            android.R.color.darker_gray
+                        )
+                    )
                     val options = RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .transform(CenterCrop(), RoundedCorners(10))
@@ -56,11 +68,38 @@ class RamalxAdapter(
                     } else {
                         imgGood[imgGood.indices.random()]
                     }
+
                     Glide.with(itemView.context)
+                        .asBitmap()
                         .load(img)
-                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .transition(BitmapTransitionOptions.withCrossFade())
                         .apply(options)
-                        .into(itemPhoto)
+                        .into(object : CustomTarget<Bitmap>() {
+                            override fun onResourceReady(
+                                resource: Bitmap,
+                                transition: Transition<in Bitmap>?
+                            ) {
+                                // Tampilkan gambar ke ImageView
+                                itemPhoto.setImageBitmap(resource)
+
+                                // 3. Ekstrak warna dominan menggunakan Palette API
+                                Palette.from(resource).generate { palette ->
+                                    val defaultColor = ContextCompat.getColor(
+                                        v.root.context,
+                                        android.R.color.darker_gray
+                                    )
+                                    val dominantColor =
+                                        palette?.getDominantColor(defaultColor) ?: defaultColor
+                                    // Set warna latar belakang secara dinamis
+                                    itemPhoto.setBackgroundColor(dominantColor)
+                                }
+                            }
+
+                            override fun onLoadCleared(placeholder: Drawable?) {
+                                // Bersihkan imageview jika proses load dibatalkan oleh Glide
+                                itemPhoto.setImageBitmap(null)
+                            }
+                        })
                     Log.e("Ramalx", item.displayName!!)
                     itemDescription.text = item.desc
                     itemDate.text = dateToString(item.date)
@@ -94,6 +133,9 @@ class RamalxAdapter(
                     itemSave.setOnClickListener {
                         onItemClickCallback.onItemSaveClicked(item)
                     }
+                    itemView.setOnClickListener {
+                        onItemClickCallback.onItemClicked(item.desc)
+                    }
                 }
             }
         }
@@ -116,5 +158,6 @@ class RamalxAdapter(
         fun onItemFavoriteClicked(data: Ramalx)
         fun onItemShareClicked(data: View)
         fun onItemSaveClicked(data: Ramalx)
+        fun onItemClicked(hasil : String)
     }
 }

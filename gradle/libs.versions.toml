@@ -23,7 +23,7 @@ recycler = "1.4.0"
 paging = "3.3.5"
 lotte = "5.2.0"
 guava = "33.3.1-android"
-
+palette = "1.0.0"
 #Glide
 glide = "4.16.0"
 
@@ -63,6 +63,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recycler" }
 androidx-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "ads" }
 guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
+androidx-palette = { group = "androidx.palette", name = "palette", version.ref = "palette" }
 
 #Paging
 paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }

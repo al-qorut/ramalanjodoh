@@ -99,3 +99,10 @@ public *;
 
 # Jika Anda juga menggunakan Google ID Token / Sign-In dengan Google via Credential Manager
 -keep class com.google.android.libraries.identity.googleid.** { *; }
+# AndroidX Palette ProGuard Rules
+-keep class androidx.palette.graphics.Palette { *; }
+-keep class androidx.palette.graphics.Palette$** { *; }
+# Glide ProGuard Rules (Jika belum ditambahkan)
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public class * extends com.bumptech.glide.module.LibraryGlideModule
+#-keep class com.bumptech.glide.GeneratedAppGlideModuleImpl { *; }

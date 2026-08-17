@@ -86,9 +86,21 @@
     <string name="ar4">The couple %1$s and %2$s will argue constantly</string>
     <string name="ar5">The couple %1$s and %2$s are incompatible</string>
     <string name="ar6">The couple %1$s and %2$s will struggle</string>
+
+    <string name="hasil0">The couple %1$s and %2$s 👉 Difference in principles. Prone to triggering debates, misunderstandings, or a tendency to move places of residence frequently.</string>
+    <string name="hasil1">The couple %1$s and %2$s 👉 Unfavorable. The relationship is predicted to have many obstacles, minimal goodness at the beginning, or a vulnerability to being looked down upon.</string>
+    <string name="hasil2">The couple %1$s and %2$s 👉 Good and blessed. Household life is predicted to go well, harmoniously, and bring a lot of tranquility.</string>
+    <string name="hasil3">The couple %1$s and %2$s 👉 Fluctuating. The household feels heavy or unfavorable at the beginning, but after passing through tight times, ease and goodness will come.</string>
+    <string name="hasil4">The couple %1$s and %2$s 👉 Strong but risky. The relationship is initially very strong and full of affection, but caution is needed as there is a potential for disputes or separation in the future if not nurtured.</string>
+    <string name="hasil5">The couple %1$s and %2$s 👉 Prosperity (Baitul Banin). The household is predicted to be prosperous, fertile, bring a lot of fortune, and be blessed with good descendants.</string>
+    <string name="hasil6">The couple %1$s and %2$s 👉 Trials at the end. The beginning of the marriage runs very sweetly and well, but is vulnerable to facing grief or hardship in old age.</string>
+    <string name="hasil7">The couple %1$s and %2$s 👉 Very good (Baitul Firosy). The household is predicted to be happy, respected by the surrounding environment, and live in abundance and full of joy.</string>
+    <string name="hasil8">The couple %1$s and %2$s 👉 Many trials (Upside Down House). Household conditions tend to be unstable, full of major dynamics, and require extra patience from both sides.</string>
+
     <string name="medsos">Social Media</string>
     <string name="about_app">Inspired by the book Al-Aufaq in predicting marriage, based on the idea that each letter has a different value. By adding up the values of each name and processing them, a marriage prediction is made.
 For those serious, please on button</string>
+    <string name="about1">That the abajadun matchmaking calculation tradition is not positioned as an absolute fate prediction, but rather practiced by the Islamic boarding school (pesantren) community as a form of spiritual effort (ikhtiar) and a means of istikharah to map out the character of potential spouses. This practice utilizes a method of converting names into alphabetical numerical values (Abjad Kabir) based on classical texts.</string>
     <string name="image_fb">Facebook</string>
     <string name="app_ver">Version %1$s</string>
     <string name="privacy_policy">Privacy Policy</string>

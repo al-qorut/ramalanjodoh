@@ -310,8 +310,9 @@ class OnlineFragment : Fragment(), RamalxAdapter.OnItemClickCallback {
            binding.progressBar.isVisible = isLoading
         })
     }
-
-
+    override fun onItemClicked(hasil: String) {
+        ConfirmationDialog(requireActivity(), hasil, negative = 0) {}
+    }
 
     override fun onItemCommentClicked(data: Ramalx) {
         val intent  = Intent(requireContext(), CommentActivity::class.java)

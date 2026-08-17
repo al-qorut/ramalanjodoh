@@ -16,7 +16,7 @@
             android:id="@+id/item_photo"
             android:layout_width="0dp"
             android:layout_height="340dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             tools:src="@tools:sample/avatars"
             android:contentDescription="@string/image_description"
             app:layout_constraintStart_toStartOf="parent"

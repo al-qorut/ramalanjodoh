@@ -157,6 +157,9 @@ class RamalanFragment : Fragment(), RamalAdapter.OnItemClickCallback {
         }
     }
 
+    override fun onItemClicked(hasil: String) {
+        ConfirmationDialog(requireActivity(), hasil, negative = 0) {}
+    }
     override fun onItemPublishClicked(data: Ramal) {
         val mainActivity = context as? MainActivity
         if (mainActivity == null) {

@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
             analisisPro.setOnClickListener {
                 ConfirmationDialog(
                     requireActivity(),
-                    message = getString(R.string.about_app),
+                    message = getString(R.string.about1),
                     negative = 0
                 ) {}
             }

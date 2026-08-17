@@ -64,7 +64,7 @@
     <string name="buruk7">Berdasarkan perhitungan dan analisa dengan berbagai kemungkinan, pasangan %1$s dan %2$s tidak cocok dan sering bertengkar, yang bisa berujung pada kehidupan keluarga yang penuh ketidakbahagiaan setelah pernikahan. %3$s!</string>
     <string name="buruk8">Prediksi dan analisa menunjukkan bahwa pasangan %1$s dan %2$s kurang serasi dan sering terlibat dalam konflik, yang berpotensi membuat mereka tidak bahagia sebagai keluarga setelah menikah. %3$s!</string>
     <string name="buruk9">Menurut berbagai analisa dan prediksi, pasangan %1$s dan %2$s kurang cocok dan sering mengalami perselisihan, sehingga kemungkinan besar keluarga mereka tidak akan bahagia jika mereka menikah. %3$s!</string>
-    <string name="disclimer">Ini hanya prediksi, kalau sudah saling mencintai abaikan saja :)</string>
+    <string name="disclimer">Ganti nama sampai dapat pasangan yang cocok 😂🤣🥲🥲 </string>
 
     <string name="banner_ad_unit_id">ca-app-pub-3624492980147085/1371439657</string>
     <string name="interstitial_ad_unit_id">ca-app-pub-3624492980147085/3400975653</string>
@@ -86,9 +86,21 @@
     <string name="ar4">Pasangan %1$s dan %2$s akan bertengkar terus</string>
     <string name="ar5">Pasangan %1$s dan %2$s tidak cocok</string>
     <string name="ar6">Pasangan %1$s dan %2$s akan susah</string>
+
+    <string name="hasil0">Pasangan %1$s dan %2$s 👉 Perbedaan prinsip. Rentan memicu perdebatan, perselisihan paham, atau kecenderungan sering berpindah-pindah tempat tinggal.</string>
+    <string name="hasil1">Pasangan %1$s dan %2$s 👉 Kurang baik. Hubungan diprediksi memiliki banyak rintangan, minim kebaikan di awalnya, atau rentan dipandang rendah.</string>
+    <string name="hasil2">Pasangan %1$s dan %2$s 👉 Bagus dan berkah. Kehidupan rumah tangga diprediksi berjalan baik, harmonis, serta mendatangkan banyak ketenteraman.</string>
+    <string name="hasil3">Pasangan %1$s dan %2$s 👉 Fluktuatif. Rumah tangga di awal terasa berat atau kurang baik, namun setelah melewati masa-masa sempit akan datang kelapangan dan kebaikan.</string>
+    <string name="hasil4">Pasangan %1$s dan %2$s 👉 Kuat namun berisiko. Hubungan awalnya sangat kuat dan penuh kasih sayang, tetapi harus diwaspadai karena ada potensi perselisihan atau perpisahan di kemudian hari jika tidak dijaga.</string>
+    <string name="hasil5">Pasangan %1$s dan %2$s 👉 Kemakmuran (Baitul Banin). Rumah tangga diprediksi makmur, subur, membawa banyak rezeki, serta dikaruniai keturunan yang baik</string>
+    <string name="hasil6">Pasangan %1$s dan %2$s 👉 Ujian di akhir. Awal pernikahan berjalan sangat manis dan baik, namun rentan menghadapi duka cita atau kesusahan di masa-masa tua.</string>
+    <string name="hasil7">Pasangan %1$s dan %2$s 👉 Sangat baik (Baitul Firosy). Rumah tangga diprediksi bahagia, dihormati oleh lingkungan sekitar, serta hidup berkecukupan dan penuh sukacita.</string>
+    <string name="hasil8">Pasangan %1$s dan %2$s 👉 Banyak cobaan (Rumah Terbalik). Kondisi rumah tangga cenderung tidak stabil, penuh dinamika besar, dan memerlukan kesabaran ekstra dari kedua belah pihak.</string>
+
     <string name="medsos">Media Sosial</string>
     <string name="about_app">Terinspirasi dari kitab hikmah Al-Aufaq dalam menghitung ramal meramal jodoh, dengan dasar bahwa setiap huruf mempunyai nilai yang berbeda. sehingga setiap nama dengan menjumlahkan nilainya tersebut kemudian diolah sedemikian rupa kemudian di dapat hasil prediksi jodoh.
 Bagi yang serius silahkan aktifkan analisis profesional AHLI HIKMAH</string>
+    <string name="about1">Tradisi hitung jodoh ini tidak diposisikan sebagai ramalan nasib mutlak, melainkan dipraktikkan masyarakat pesantren sebagai salah satu bentuk ikhtiar batiniah dan sarana istikharah untuk memetakan karakter calon pasangan. Praktik ini menggunakan metode konversi nama menjadi nilai angka huruf abjad kabir berdasarkan kitab klasik.</string>
     <string name="image_fb">Facebook</string>
     <string name="app_ver">Version %1$s</string>
     <string name="privacy_policy">Privacy Policy</string>
